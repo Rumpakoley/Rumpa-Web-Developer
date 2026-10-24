@@ -22,7 +22,7 @@ export const SpeedComparisonAudit: React.FC = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 border-t border-white/10 relative bg-gradient-to-b from-transparent via-white/[0.01] to-transparent">
+    <section id="speed-audit" className="py-20 md:py-28 border-t border-cyan-500/20 relative bg-gradient-to-b from-transparent via-cyan-950/10 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-12">
           <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-2">

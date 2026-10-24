@@ -3,7 +3,9 @@ import { INITIAL_PROFILE } from './data/portfolioData';
 import { DeveloperProfile, Project, ServiceTier } from './types';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { TimelineShowcase } from './components/TimelineShowcase';
 import { ProjectsSection } from './components/ProjectsSection';
+import { GarageCLI } from './components/GarageCLI';
 import { ServicesSection } from './components/ServicesSection';
 import { EstimateCalculator } from './components/EstimateCalculator';
 import { SpeedComparisonAudit } from './components/SpeedComparisonAudit';
@@ -15,6 +17,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ProfileSettingsModal } from './components/ProfileSettingsModal';
+import { sound } from './utils/audio';
 
 export default function App() {
   // Developer profile stored in localStorage
@@ -36,6 +39,17 @@ export default function App() {
     return saved === 'USD' ? 'USD' : 'INR';
   });
 
+  // Audio SFX state
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
+    return sound.isEnabled();
+  });
+
+  // CRT Scanline Shader state
+  const [crtEnabled, setCrtEnabled] = useState<boolean>(() => {
+    const saved = localStorage.getItem('garage_crt_enabled');
+    return saved === 'true';
+  });
+
   // Modals state
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -43,6 +57,18 @@ export default function App() {
   // Pre-filled contact inquiry state
   const [prefilledScope, setPrefilledScope] = useState<string>('');
   const [prefilledBudget, setPrefilledBudget] = useState<string>('');
+
+  const toggleSound = () => {
+    const next = !soundEnabled;
+    setSoundEnabled(next);
+    sound.setEnabled(next);
+  };
+
+  const toggleCRT = () => {
+    const next = !crtEnabled;
+    setCrtEnabled(next);
+    localStorage.setItem('garage_crt_enabled', next ? 'true' : 'false');
+  };
 
   const toggleCurrency = () => {
     const next = currency === 'INR' ? 'USD' : 'INR';
@@ -84,27 +110,49 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090A0F] text-slate-100 flex flex-col font-sans selection:bg-indigo-600 selection:text-white">
-      {/* Strict 3-zone Top Bar */}
+    <div className={`min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans selection:bg-cyan-600 selection:text-white ${crtEnabled ? 'crt-mode' : ''}`}>
+      
+      {/* Top Garage HUD & Navigation Bar */}
       <Navbar
         profile={profile}
         currency={currency}
         onToggleCurrency={toggleCurrency}
         onOpenContact={() => scrollToContact()}
         onOpenSettings={() => setSettingsOpen(true)}
+        soundEnabled={soundEnabled}
+        onToggleSound={toggleSound}
+        crtEnabled={crtEnabled}
+        onToggleCRT={toggleCRT}
       />
 
       {/* Main Content Sections */}
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* Cyber / Tech Garage Hero Section */}
         <Hero
           profile={profile}
           onOpenContact={() => scrollToContact()}
           onOpenEstimator={scrollToEstimator}
         />
 
+        {/* Flagship: The 3D Timeline Chain (Inspired by bryangarage.dev/showcase) */}
+        <TimelineShowcase
+          onSelectProject={(proj) => setSelectedProject(proj)}
+          onOpenContact={(note) => scrollToContact(note)}
+        />
+
         {/* Selected Projects Bento Grid */}
         <ProjectsSection
+          onSelectProject={(proj) => setSelectedProject(proj)}
+          onOpenContact={(note) => scrollToContact(note)}
+        />
+
+        {/* Interactive Garage CLI Terminal */}
+        <GarageCLI
+          profile={profile}
+          soundEnabled={soundEnabled}
+          onToggleSound={toggleSound}
+          crtEnabled={crtEnabled}
+          onToggleCRT={toggleCRT}
           onSelectProject={(proj) => setSelectedProject(proj)}
           onOpenContact={(note) => scrollToContact(note)}
         />
@@ -140,7 +188,7 @@ export default function App() {
         {/* Frequently Asked Questions */}
         <FaqSection />
 
-        {/* Contact & Intake System */}
+        {/* High-Tech Origami Transmission Contact Intake */}
         <ContactSection
           profile={profile}
           currency={currency}
@@ -149,13 +197,13 @@ export default function App() {
         />
       </main>
 
-      {/* Quiet Footer */}
+      {/* Footer */}
       <Footer
         profile={profile}
         onOpenSettings={() => setSettingsOpen(true)}
       />
 
-      {/* Case Study Modal */}
+      {/* Deep Architecture & System Specs Case Study Modal */}
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

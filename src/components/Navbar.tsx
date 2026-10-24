@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X, ArrowUpRight, DollarSign } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Volume2, VolumeX, Monitor, Terminal, Sparkles } from 'lucide-react';
 import { DeveloperProfile } from '../types';
+import { sound } from '../utils/audio';
 
 interface NavbarProps {
   profile: DeveloperProfile;
@@ -8,6 +9,10 @@ interface NavbarProps {
   onToggleCurrency: () => void;
   onOpenContact: () => void;
   onOpenSettings: () => void;
+  soundEnabled: boolean;
+  onToggleSound: () => void;
+  crtEnabled: boolean;
+  onToggleCRT: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,22 +21,27 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleCurrency,
   onOpenContact,
   onOpenSettings,
+  soundEnabled,
+  onToggleSound,
+  crtEnabled,
+  onToggleCRT,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Work', href: '#projects' },
+    { label: '3D Showcase', href: '#showcase', highlight: true },
+    { label: 'Bento Grid', href: '#projects' },
+    { label: 'Garage CLI', href: '#terminal' },
     { label: 'Services', href: '#services' },
     { label: 'Estimator', href: '#estimator' },
-    { label: 'Process', href: '#process' },
+    { label: 'Speed Audit', href: '#speed-audit' },
     { label: 'About', href: '#about' },
-    { label: 'Reviews', href: '#reviews' },
-    { label: 'Insights', href: '#insights' },
     { label: 'Contact', href: '#contact' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    sound.playClick(750);
     setMobileMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
@@ -40,100 +50,186 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#090A0F]/85 backdrop-blur-md border-b border-white/10 transition-colors">
+    <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-xl border-b border-cyan-500/20 transition-colors">
+      {/* Top telemetry ticker strip */}
+      <div className="hidden lg:flex items-center justify-between px-6 py-1 bg-black/60 border-b border-white/5 text-[10px] font-mono text-slate-400">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5 text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            GARAGE OS v2.6.4 [ONLINE]
+          </span>
+          <span className="text-slate-600">|</span>
+          <span>UPTIME: 99.98%</span>
+          <span className="text-slate-600">|</span>
+          <span className="text-cyan-400">INSPIRATION: BRYANGARAGE.DEV/SHOWCASE</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <span>LATENCY: 12ms</span>
+          <span className="text-slate-600">|</span>
+          <span>STACK: REACT 19 + TAILWIND + WEB AUDIO</span>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Zone 1: Single text wordmark */}
+        {/* Zone 1: Terminal badge and Developer Identity */}
         <div className="flex items-center gap-3">
           <a
             href="#hero"
             onClick={(e) => handleLinkClick(e, '#hero')}
-            className="text-lg font-bold tracking-tight text-white hover:text-indigo-400 transition-colors font-display"
+            className="flex items-center gap-2 group"
           >
-            {profile.name}
+            <div className="w-7 h-7 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400 transition-colors">
+              <Terminal className="w-4 h-4" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold tracking-tight text-white group-hover:text-cyan-300 transition-colors font-display flex items-center gap-1.5">
+                {profile.name}
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-mono font-normal">
+                  DEV
+                </span>
+              </span>
+            </div>
           </a>
           <button
-            onClick={onOpenSettings}
+            onClick={() => {
+              sound.playClick();
+              onOpenSettings();
+            }}
             title="Edit profile & rates"
-            className="text-[11px] text-slate-400 hover:text-slate-200 transition-colors border border-white/10 rounded px-1.5 py-0.5"
+            className="text-[10px] font-mono text-slate-400 hover:text-slate-200 transition-colors border border-white/10 rounded px-1.5 py-0.5"
           >
-            Edit
+            Config
           </button>
         </div>
 
-        {/* Zone 2: Clean 4-6 text navigation links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        {/* Zone 2: Navigation links */}
+        <nav className="hidden md:flex items-center gap-5 text-xs font-mono text-slate-300">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className="hover:text-white transition-colors"
+              className={`transition-colors py-1 ${
+                link.highlight
+                  ? 'text-cyan-300 font-bold border-b border-cyan-400'
+                  : 'hover:text-white text-slate-400'
+              }`}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Zone 3: 1-2 primary actions */}
-        <div className="flex items-center gap-3">
+        {/* Zone 3: Interactive controls (Audio, CRT, Currency, Contact) */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Audio FX Toggle */}
+          <button
+            onClick={() => {
+              onToggleSound();
+              sound.playClick();
+            }}
+            className={`p-2 rounded-lg border text-xs font-mono transition-all flex items-center gap-1 ${
+              soundEnabled
+                ? 'bg-cyan-950/80 text-cyan-300 border-cyan-500/40'
+                : 'bg-black/40 text-slate-500 border-white/10 hover:text-slate-300'
+            }`}
+            title={soundEnabled ? 'Disable Synthesized Audio' : 'Enable Synthesized Audio (Web Audio API)'}
+          >
+            {soundEnabled ? <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> : <VolumeX className="w-3.5 h-3.5" />}
+            <span className="hidden xl:inline text-[10px]">{soundEnabled ? 'SFX ON' : 'MUTED'}</span>
+          </button>
+
+          {/* CRT Filter Toggle */}
+          <button
+            onClick={() => {
+              sound.playClick();
+              onToggleCRT();
+            }}
+            className={`p-2 rounded-lg border text-xs font-mono transition-all flex items-center gap-1 ${
+              crtEnabled
+                ? 'bg-amber-950/80 text-amber-300 border-amber-500/40'
+                : 'bg-black/40 text-slate-500 border-white/10 hover:text-slate-300'
+            }`}
+            title={crtEnabled ? 'Disable CRT Scanlines' : 'Enable CRT Scanlines'}
+          >
+            <Monitor className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden xl:inline text-[10px]">{crtEnabled ? 'CRT ON' : 'CRT OFF'}</span>
+          </button>
+
           {/* Currency Toggle */}
           <button
-            onClick={onToggleCurrency}
+            onClick={() => {
+              sound.playClick();
+              onToggleCurrency();
+            }}
             aria-label="Toggle currency between INR and USD"
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-mono font-medium text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono font-medium text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors"
             title="Toggle between INR (₹) and USD ($)"
           >
-            <span className={currency === 'INR' ? 'text-indigo-400 font-semibold' : 'text-slate-400'}>₹ INR</span>
-            <span className="text-slate-500">/</span>
-            <span className={currency === 'USD' ? 'text-indigo-400 font-semibold' : 'text-slate-400'}>$ USD</span>
+            <span className={currency === 'INR' ? 'text-cyan-400 font-semibold' : 'text-slate-500'}>₹ INR</span>
+            <span className="text-slate-600">/</span>
+            <span className={currency === 'USD' ? 'text-cyan-400 font-semibold' : 'text-slate-500'}>$ USD</span>
           </button>
 
           {/* Primary Action CTA */}
           <button
-            onClick={onOpenContact}
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-sm transition-all whitespace-nowrap"
+            onClick={() => {
+              sound.playClick();
+              onOpenContact();
+            }}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-cyan-600 hover:bg-cyan-500 rounded-lg shadow-sm shadow-cyan-600/30 transition-all font-mono whitespace-nowrap"
           >
-            <span>Get a Quote</span>
+            <span>Start Mission</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
 
           {/* Mobile menu trigger */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none"
-            aria-label="Toggle Navigation Menu"
+            onClick={() => {
+              sound.playClick();
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
+            className="md:hidden p-2 rounded-lg bg-white/5 text-slate-300 hover:text-white border border-white/10"
+            aria-label="Toggle mobile menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0D0E15] border-b border-white/10 px-4 pt-3 pb-6 space-y-3">
-          <div className="grid grid-cols-2 gap-2 text-sm text-slate-300">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className="py-2 px-3 rounded-lg hover:bg-white/5 transition-colors font-medium"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
+        <div className="md:hidden bg-[#0a0d16] border-b border-cyan-500/20 px-4 py-4 space-y-2">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
+              className="block px-3 py-2 rounded-lg text-sm font-mono text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+          <div className="pt-2 border-t border-white/10 flex items-center justify-between">
             <button
               onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenContact();
+                onToggleSound();
+                sound.playClick();
               }}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg"
+              className="text-xs font-mono text-cyan-400 flex items-center gap-1.5"
             >
-              <span>Get a Quote</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>Audio: {soundEnabled ? 'ON' : 'OFF'}</span>
+            </button>
+            <button
+              onClick={() => {
+                onToggleCRT();
+                sound.playClick();
+              }}
+              className="text-xs font-mono text-amber-400 flex items-center gap-1.5"
+            >
+              <Monitor className="w-3.5 h-3.5" />
+              <span>CRT: {crtEnabled ? 'ON' : 'OFF'}</span>
             </button>
           </div>
         </div>

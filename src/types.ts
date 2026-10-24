@@ -1,8 +1,11 @@
+export type TimelineTrack = 'side_project' | 'commercial';
+
 export interface Project {
   id: string;
   title: string;
   subtitle: string;
-  category: 'ecommerce' | 'saas' | 'business' | 'landing';
+  category: 'ecommerce' | 'saas' | 'business' | 'landing' | 'experimental' | 'ai';
+  track?: TimelineTrack; // 'side_project' (floating above axis) | 'commercial' (sitting below axis)
   client: string;
   completionYear: string;
   timeline: string;
@@ -19,6 +22,14 @@ export interface Project {
   accentColor: string;
   badge: string;
   type: string;
+  status?: 'SHIPPED' | 'LIVE' | 'AI LAB' | 'WIP' | 'PROD';
+  architecture?: {
+    frontend: string;
+    backend: string;
+    databaseOrCache: string;
+    deployment: string;
+  };
+  terminalLogs?: string[];
 }
 
 export interface ServiceTier {
