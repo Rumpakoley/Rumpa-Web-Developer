@@ -73,6 +73,15 @@ export default function App() {
   const [prefilledScope, setPrefilledScope] = useState<string>('');
   const [prefilledBudget, setPrefilledBudget] = useState<string>('');
 
+  // Ensure page always starts at top on initial load
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.location.hash === '' && window.location.pathname !== '/showcase') {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, []);
+
   const handleSwitchView = (view: 'landing' | 'showcase') => {
     sound.playClick(900);
     setCurrentView(view);

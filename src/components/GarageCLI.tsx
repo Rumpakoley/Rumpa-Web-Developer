@@ -33,7 +33,8 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
   const [inputVal, setInputVal] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
-  const terminalBottomRef = useRef<HTMLDivElement>(null);
+  const isFirstMount = useRef(true);
+  const terminalLogsBoxRef = useRef<HTMLDivElement>(null);
 
   const initialLogs: CommandLog[] = [
     {
@@ -62,7 +63,13 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
   const [logs, setLogs] = useState<CommandLog[]>(initialLogs);
 
   useEffect(() => {
-    terminalBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    if (terminalLogsBoxRef.current) {
+      terminalLogsBoxRef.current.scrollTop = terminalLogsBoxRef.current.scrollHeight;
+    }
   }, [logs]);
 
   const handleCommand = (rawCmd: string) => {
@@ -297,7 +304,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
         </div>
 
         {/* Terminal Body */}
-        <div className="bg-[#0b0c10] border-x border-b border-amber-500/40 rounded-b-2xl p-4 sm:p-6 font-mono text-xs shadow-2xl min-h-[360px] max-h-[500px] overflow-y-auto flex flex-col justify-between">
+        <div ref={terminalLogsBoxRef} className="bg-[#0b0c10] border-x border-b border-amber-500/40 rounded-b-2xl p-4 sm:p-6 font-mono text-xs shadow-2xl min-h-[360px] max-h-[500px] overflow-y-auto flex flex-col justify-between">
           <div className="space-y-4">
             {logs.map((log) => (
               <div key={log.id} className="space-y-1">
@@ -309,7 +316,6 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
                 <div className="pl-4 border-l border-white/10">{log.output}</div>
               </div>
             ))}
-            <div ref={terminalBottomRef} />
           </div>
 
           {/* Input & Quick Chips */}

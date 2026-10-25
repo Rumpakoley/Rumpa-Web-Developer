@@ -257,7 +257,6 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
                   <form onSubmit={handleTerminalSubmit} className="pt-2 flex items-center gap-2 border-t border-white/10">
                     <span className="text-amber-400 font-bold">&gt;</span>
                     <input
-                      autoFocus
                       type="text"
                       placeholder="Type 'showcase', 'contact', or 'clear'..."
                       value={terminalInput}
