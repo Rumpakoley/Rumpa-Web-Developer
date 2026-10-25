@@ -19,6 +19,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ProfileSettingsModal } from './components/ProfileSettingsModal';
+import { CustomCursor } from './components/CustomCursor';
 import { sound } from './utils/audio';
 
 export default function App() {
@@ -153,6 +154,8 @@ export default function App() {
 
   return (
     <div className={`min-h-screen bg-[#0e0f13] text-slate-100 flex flex-col font-sans selection:bg-amber-600 selection:text-white ${crtEnabled ? 'crt-mode' : ''}`}>
+      {/* Bryan Garage Signature Paper Plane Cursor */}
+      <CustomCursor />
       
       {/* ========================================================================= */}
       {/* VIEW 1: FULL-SCREEN BRYAN GARAGE 3D TIMELINE SHOWCASE (/showcase)        */}
