@@ -200,76 +200,82 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
       />
 
       {/* ======================================================== */}
-      {/* TOP HEADER BAR (Exact match to reference site)           */}
+      {/* TOP HEADER & EDITORIAL HERO SECTION                      */}
       {/* ======================================================== */}
-      <div className="relative z-20 flex items-center justify-end gap-5 text-xs font-mono animate-hero-fade">
-        {/* Jump to Command Palette Button */}
-        <button
-          onClick={() => {
-            sound.playClick();
-            onOpenCommandPalette();
-          }}
-          className="px-3 py-1.5 rounded-full bg-[#18191f] hover:bg-[#22242c] border border-white/10 hover:border-amber-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-2 shadow-sm hover:scale-105 active:scale-95"
-          title="Open command palette (Ctrl+K)"
-        >
-          <span className="text-slate-400">Jump to</span>
-          <kbd className="px-1.5 py-0.5 rounded bg-black/50 border border-white/10 text-[10px] text-slate-300 font-sans">
-            ⌘ K
-          </kbd>
-          <span className="text-amber-400 font-bold">&gt;_</span>
-        </button>
-
-        {/* Live Clock & Timezone */}
-        <div className="hidden md:block text-[11px] text-slate-400 tracking-wider">
-          {currentTime || '08:49:27 AM  ASIA/CALCUTTA'}
+      <div className="relative z-20 w-full max-w-7xl mx-auto">
+        {/* Top Header Row: Jump to Command Palette on Top Right */}
+        <div className="flex items-center justify-end animate-hero-fade mb-4 sm:mb-6">
+          <button
+            onClick={() => {
+              sound.playClick();
+              onOpenCommandPalette();
+            }}
+            className="px-3 py-1.5 rounded-full bg-[#18191f] hover:bg-[#22242c] border border-white/10 hover:border-amber-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-2 shadow-sm hover:scale-105 active:scale-95"
+            title="Open command palette (Ctrl+K)"
+          >
+            <span className="text-slate-400">Jump to</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-black/50 border border-white/10 text-[10px] text-slate-300 font-sans">
+              ⌘ K
+            </kbd>
+            <span className="text-amber-400 font-bold">&gt;_</span>
+          </button>
         </div>
 
-        {/* Hide / Show Terminal Toggle */}
-        <button
-          onClick={() => {
-            sound.playClick();
-            setTerminalVisible(!terminalVisible);
-          }}
-          className="text-[11px] text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
-        >
-          <span>{terminalVisible ? 'HIDE TERMINAL' : 'SHOW TERMINAL'}</span>
-          <span className="text-amber-400 font-bold group-hover:translate-x-0.5 transition-transform">&gt;</span>
-        </button>
+        {/* Main Content Row: Left Hero Statement + Right Telemetry Column (Exact match to reference site) */}
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 animate-hero-fade">
+          {/* Left Column: Hero Description (Left aligned) */}
+          <div className="max-w-3xl lg:max-w-4xl text-left">
+            <h1 className="text-2xl sm:text-4xl md:text-[40px] lg:text-[44px] leading-[1.28] font-normal tracking-tight text-slate-400 font-sans text-left">
+              <span className="font-mono font-black text-white text-3xl sm:text-5xl tracking-widest inline-block mr-2 uppercase">
+                AI
+              </span>{' '}
+              <strong className="text-white font-black tracking-tight uppercase">
+                GARAGE
+              </strong>{' '}
+              <span className="text-slate-300 font-medium">by</span>{' '}
+              <strong className="text-white font-bold underline decoration-amber-500/40 underline-offset-4 hover:decoration-amber-400 transition-colors cursor-pointer">
+                {profile.name}
+              </strong>
+              . Born in Kolkata, building fast, award-caliber web experiences for founders worldwide. Four years in: architecting headless commerce at <strong className="text-white font-semibold hover:text-amber-300 transition-colors">Lumina Atelier</strong>, real-time SaaS telemetry at <strong className="text-white font-semibold hover:text-amber-300 transition-colors">Pulse Systems</strong>, and high-performance booking engines. Now building generative UI canvas tools and high-speed web engines.
+            </h1>
 
-        {/* Say Hi Action */}
-        <button
-          onClick={() => {
-            sound.playClick(900);
-            onOpenContact('Hello Rumpa! Reaching out from your AI Garage.');
-          }}
-          className="text-[11px] text-slate-300 hover:text-amber-400 transition-colors flex items-center gap-1.5 group"
-        >
-          <span>SAY HI</span>
-          <Send className="w-3 h-3 text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-        </button>
-      </div>
+            <p className="mt-6 text-xs sm:text-sm text-slate-500 font-light max-w-2xl leading-relaxed text-left">
+              I believe software is the most malleable medium we have, and the modern web is the most interesting thing to happen to it.
+            </p>
+          </div>
 
-      {/* ======================================================== */}
-      {/* EDITORIAL HERO STATEMENT (Exact match to reference)      */}
-      {/* ======================================================== */}
-      <div className="relative z-10 max-w-4xl mx-auto mt-8 sm:mt-12 px-2 text-left animate-hero-fade">
-        <h1 className="text-2xl sm:text-4xl md:text-[42px] leading-[1.3] font-normal tracking-tight text-slate-400 font-sans">
-          <span className="font-mono font-black text-white text-3xl sm:text-5xl tracking-widest inline-block mr-2 uppercase">
-            AI
-          </span>{' '}
-          <strong className="text-white font-black tracking-tight uppercase">
-            GARAGE
-          </strong>{' '}
-          <span className="text-slate-300 font-medium">by</span>{' '}
-          <strong className="text-white font-bold underline decoration-amber-500/40 underline-offset-4 hover:decoration-amber-400 transition-colors cursor-pointer">
-            {profile.name}
-          </strong>
-          . Born in Kolkata, building fast, award-caliber web experiences for founders worldwide. Four years in: architecting headless commerce at <strong className="text-white font-semibold hover:text-amber-300 transition-colors">Lumina Atelier</strong>, real-time SaaS telemetry at <strong className="text-white font-semibold hover:text-amber-300 transition-colors">Pulse Systems</strong>, and high-performance booking engines. Now building generative UI canvas tools and high-speed web engines.
-        </h1>
+          {/* Right Column: Stacked Telemetry & Navigation Actions (Right aligned) */}
+          <div className="flex lg:flex-col items-center lg:items-end justify-between sm:justify-end gap-3.5 sm:gap-4 font-mono text-xs shrink-0 w-full lg:w-auto pt-1 border-t lg:border-t-0 border-white/10 lg:pt-0">
+            {/* Live Clock & Timezone */}
+            <div className="text-[11px] text-slate-400 tracking-wider">
+              {currentTime || '08:49:27 AM  ASIA/CALCUTTA'}
+            </div>
 
-        <p className="mt-6 text-xs sm:text-sm text-slate-500 font-light max-w-2xl leading-relaxed">
-          I believe software is the most malleable medium we have, and the modern web is the most interesting thing to happen to it.
-        </p>
+            {/* Hide / Show Terminal Toggle */}
+            <button
+              onClick={() => {
+                sound.playClick();
+                setTerminalVisible(!terminalVisible);
+              }}
+              className="text-[11px] text-slate-400 hover:text-white transition-colors flex items-center gap-1 group py-0.5"
+            >
+              <span>{terminalVisible ? 'HIDE TERMINAL' : 'SHOW TERMINAL'}</span>
+              <span className="text-amber-400 font-bold group-hover:translate-x-0.5 transition-transform">&gt;</span>
+            </button>
+
+            {/* Say Hi Action */}
+            <button
+              onClick={() => {
+                sound.playClick(900);
+                onOpenContact('Hello Rumpa! Reaching out from your AI Garage.');
+              }}
+              className="text-[11px] text-slate-300 hover:text-amber-400 transition-colors flex items-center gap-1.5 group py-0.5"
+            >
+              <span>SAY HI</span>
+              <Send className="w-3 h-3 text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* ======================================================== */}
