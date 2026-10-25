@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Project } from '../types';
 import { PROJECTS } from '../data/portfolioData';
 import { ProjectMockupFrame } from './ProjectMockupFrame';
-import { ArrowUpRight, CheckCircle2, Cpu, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Cpu } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 interface ProjectsSectionProps {
@@ -27,12 +27,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
   ] as const;
 
   return (
-    <section id="projects" className="py-20 md:py-28 border-t border-cyan-500/20 relative bg-black/40">
+    <section id="projects" className="py-20 md:py-28 border-t border-amber-500/20 relative bg-black/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <div className="text-xs font-mono text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5" />
               <span>Matrix Case Studies</span>
             </div>
@@ -55,7 +55,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                 }}
                 className={`px-3 py-1.5 text-xs font-mono rounded-lg whitespace-nowrap transition-all ${
                   activeFilter === tab.id
-                    ? 'bg-cyan-600 text-white font-semibold shadow-sm shadow-cyan-600/30'
+                    ? 'bg-amber-600 text-white font-semibold shadow-sm shadow-amber-600/30'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -70,12 +70,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="bg-[#0b0e18] border border-cyan-500/20 rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-cyan-500/40 transition-all shadow-xl hover:shadow-2xl hover:shadow-cyan-950/30"
+              className="bg-[#111218] border border-amber-500/20 rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-amber-500/50 transition-all shadow-xl hover:shadow-2xl hover:shadow-amber-950/20"
             >
               <div>
                 {/* Metadata Header */}
                 <div className="flex items-center gap-2 text-xs text-slate-400 font-mono mb-3">
-                  <span className="text-cyan-400 font-medium">{project.type}</span>
+                  <span className="text-amber-400 font-medium">{project.type}</span>
                   <span aria-hidden="true" className="text-slate-600">·</span>
                   <span>{project.client}</span>
                   <span aria-hidden="true" className="text-slate-600">·</span>
@@ -97,12 +97,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
 
                 {/* Problem vs Solution Summary */}
                 <div className="space-y-3 mb-6 text-xs text-slate-300">
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
+                  <div className="p-3.5 rounded-xl bg-black/50 border border-white/5">
                     <span className="font-mono text-rose-400 font-semibold block mb-1">Obstacle:</span>
                     <span className="font-light">{project.problem}</span>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
-                    <span className="font-mono text-emerald-400 font-semibold block mb-1">Architecture Delivered:</span>
+                  <div className="p-3.5 rounded-xl bg-black/50 border border-white/5">
+                    <span className="font-mono text-amber-400 font-semibold block mb-1">Architecture Delivered:</span>
                     <span className="font-light">{project.solution}</span>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                       sound.playClick();
                       onSelectProject(project);
                     }}
-                    className="flex-1 py-2.5 text-xs font-mono font-medium rounded-xl bg-cyan-950/60 hover:bg-cyan-950 border border-cyan-500/30 text-cyan-300 hover:text-white transition-all text-center flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2.5 text-xs font-mono font-medium rounded-xl bg-amber-950/60 hover:bg-amber-950 border border-amber-500/40 text-amber-300 hover:text-white transition-all text-center flex items-center justify-center gap-1.5"
                   >
                     <span>Inspect System Specs</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -142,7 +142,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                       sound.playClick();
                       onOpenContact(`I would like a website with similar architecture to ${project.title}`);
                     }}
-                    className="py-2.5 px-4 text-xs font-mono font-semibold rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white transition-all whitespace-nowrap"
+                    className="py-2.5 px-4 text-xs font-mono font-semibold rounded-xl bg-amber-600 hover:bg-amber-500 text-white transition-all whitespace-nowrap"
                   >
                     Inquire Similar
                   </button>

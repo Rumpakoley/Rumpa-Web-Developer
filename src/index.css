@@ -14,36 +14,42 @@
   }
 }
 
-/* Custom subtle scrollbar */
+/* Custom subtle dark amber scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #06070a;
+  background: #090a0d;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1b2133;
+  background: #252833;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2e3752;
+  background: #f59e0b;
 }
 
-/* Cyberpunk & Tech Garage Grid Background */
-.bg-tech-grid {
+/* Bryan Garage Signature Scanlines Background */
+.bg-garage-scanlines {
+  background-color: #0e0f13;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5) 0px,
+    rgba(0, 0, 0, 0.5) 1.5px,
+    transparent 1.5px,
+    transparent 3.5px
+  );
+}
+
+.bg-garage-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 36px 36px;
-}
-
-.bg-tech-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 24px 24px;
+    linear-gradient(to right, rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 158, 11, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 /* CRT Scanlines Overlay */
@@ -52,11 +58,11 @@
   display: block;
   position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(90deg, rgba(255, 120, 0, 0.04), rgba(0, 0, 0, 0.02), rgba(255, 180, 0, 0.04));
   z-index: 9999;
-  background-size: 100% 3px, 5px 100%;
+  background-size: 100% 3px, 6px 100%;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .crt-mode::after {
@@ -64,7 +70,7 @@
   display: block;
   position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.6) 100%);
+  background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
   z-index: 9998;
 }
@@ -80,21 +86,16 @@
 }
 
 .card-3d-tilt:hover {
-  box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.25);
 }
 
-/* Neon glow pulses */
-@keyframes neonPulseCyan {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.35), inset 0 0 10px rgba(6, 182, 212, 0.15);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(6, 182, 212, 0.6), inset 0 0 15px rgba(6, 182, 212, 0.3);
-  }
+/* Amber Retro Phosphor Glow */
+.glow-amber-text {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.7), 0 0 20px rgba(234, 88, 12, 0.4);
 }
 
-.neon-glow-cyan {
-  animation: neonPulseCyan 3s infinite ease-in-out;
+.glow-amber-box {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.25), inset 0 0 15px rgba(245, 158, 11, 0.15);
 }
 
 /* Terminal Cursor Blink */
@@ -105,10 +106,20 @@
 
 .terminal-cursor {
   display: inline-block;
-  width: 9px;
-  height: 18px;
-  background-color: #22c55e;
+  width: 8px;
+  height: 16px;
+  background-color: #f59e0b;
   vertical-align: middle;
   margin-left: 2px;
   animation: cursorBlink 1s infinite;
+}
+
+/* Retro CRT wireframe globe animation */
+@keyframes globeSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.wireframe-orbit {
+  animation: globeSpin 25s linear infinite;
 }

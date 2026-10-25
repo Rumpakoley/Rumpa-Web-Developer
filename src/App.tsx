@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { INITIAL_PROFILE } from './data/portfolioData';
 import { DeveloperProfile, Project, ServiceTier } from './types';
+import { BryanGarageLandingHero } from './components/BryanGarageLandingHero';
 import { BryanGarageShowcase } from './components/BryanGarageShowcase';
+import { CommandPaletteModal } from './components/CommandPaletteModal';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
 import { TimelineShowcase } from './components/TimelineShowcase';
 import { ProjectsSection } from './components/ProjectsSection';
 import { GarageCLI } from './components/GarageCLI';
@@ -19,11 +20,10 @@ import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ProfileSettingsModal } from './components/ProfileSettingsModal';
 import { sound } from './utils/audio';
-import { Terminal, Cpu, Layers } from 'lucide-react';
 
 export default function App() {
-  // Current view mode: 'showcase' (Bryan Garage 3D Timeline), 'overview' (Full portfolio), or 'terminal'
-  const [currentView, setCurrentView] = useState<'showcase' | 'overview' | 'terminal'>(() => {
+  // View mode: 'landing' (Default landing page matching reference screenshot) or 'showcase' (Fullscreen 3D chamber)
+  const [currentView, setCurrentView] = useState<'landing' | 'showcase'>(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
       const hash = window.location.hash;
@@ -31,8 +31,7 @@ export default function App() {
         return 'showcase';
       }
     }
-    // Default to the flagship 3D Showcase inspired by bryangarage.dev/showcase
-    return 'showcase';
+    return 'landing';
   });
 
   // Developer profile stored in localStorage
@@ -68,12 +67,13 @@ export default function App() {
   // Modals state
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
   // Pre-filled contact inquiry state
   const [prefilledScope, setPrefilledScope] = useState<string>('');
   const [prefilledBudget, setPrefilledBudget] = useState<string>('');
 
-  const handleSwitchView = (view: 'showcase' | 'overview' | 'terminal') => {
+  const handleSwitchView = (view: 'landing' | 'showcase') => {
     sound.playClick(900);
     setCurrentView(view);
     if (typeof window !== 'undefined') {
@@ -105,28 +105,29 @@ export default function App() {
     localStorage.setItem('developer_profile', JSON.stringify(updated));
   };
 
-  const scrollToContact = (note?: string, budget?: string) => {
-    if (note) setPrefilledScope(note);
-    if (budget) setPrefilledBudget(budget);
+  const scrollToSection = (targetId: string) => {
+    if (targetId === 'showcase') {
+      handleSwitchView('showcase');
+      return;
+    }
     if (currentView === 'showcase') {
-      setCurrentView('overview');
+      setCurrentView('landing');
       setTimeout(() => {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     } else {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const scrollToContact = (note?: string, budget?: string) => {
+    if (note) setPrefilledScope(note);
+    if (budget) setPrefilledBudget(budget);
+    scrollToSection('contact');
+  };
+
   const scrollToEstimator = () => {
-    if (currentView === 'showcase') {
-      setCurrentView('overview');
-      setTimeout(() => {
-        document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToSection('estimator');
   };
 
   const handleSelectService = (service: ServiceTier) => {
@@ -142,10 +143,10 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen bg-[#05070B] text-slate-100 flex flex-col font-sans selection:bg-cyan-600 selection:text-white ${crtEnabled ? 'crt-mode' : ''}`}>
+    <div className={`min-h-screen bg-[#0e0f13] text-slate-100 flex flex-col font-sans selection:bg-amber-600 selection:text-white ${crtEnabled ? 'crt-mode' : ''}`}>
       
       {/* ========================================================================= */}
-      {/* MODE 1: DEDICATED BRYAN GARAGE 3D TIMELINE SHOWCASE (/showcase)          */}
+      {/* VIEW 1: FULL-SCREEN BRYAN GARAGE 3D TIMELINE SHOWCASE (/showcase)        */}
       {/* ========================================================================= */}
       {currentView === 'showcase' ? (
         <BryanGarageShowcase
@@ -156,72 +157,23 @@ export default function App() {
           onToggleCRT={toggleCRT}
           onSelectProject={(proj) => setSelectedProject(proj)}
           onOpenContact={(note) => scrollToContact(note)}
-          onSwitchView={handleSwitchView}
+          onSwitchView={(v) => handleSwitchView(v === 'showcase' ? 'showcase' : 'landing')}
         />
       ) : (
         /* ========================================================================= */
-        /* MODE 2: FULL OVERVIEW / HYBRID GARAGE WORKSTATION                         */
+        /* VIEW 2: THE SIGNATURE BRYAN GARAGE LANDING PAGE (Exact match to image)   */
         /* ========================================================================= */
         <>
-          {/* Top Floating View Switcher Pill */}
-          <div className="sticky top-0 z-50 bg-[#07090e]/90 backdrop-blur-xl border-b border-cyan-500/20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-white flex items-center gap-1.5">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
-                  {profile.name} // GARAGE OS
-                </span>
-              </div>
+          {/* Top Hero Landing Header (Matches Reference Screenshot) */}
+          <BryanGarageLandingHero
+            profile={profile}
+            onOpenCommandPalette={() => setCommandPaletteOpen(true)}
+            onOpenContact={(note) => scrollToContact(note)}
+            onOpenShowcase={() => handleSwitchView('showcase')}
+            onSelectProject={(proj) => setSelectedProject(proj)}
+          />
 
-              {/* View Switcher Tabs */}
-              <div className="flex items-center p-1 rounded-xl bg-black/60 border border-white/10 text-xs font-mono">
-                <button
-                  onClick={() => handleSwitchView('showcase')}
-                  className="px-3 py-1 rounded-lg bg-cyan-600 text-white font-semibold shadow-md shadow-cyan-600/30 flex items-center gap-1.5 transition-all"
-                >
-                  <Cpu className="w-3.5 h-3.5" />
-                  <span>3D Showcase</span>
-                </button>
-
-                <button
-                  onClick={() => handleSwitchView('overview')}
-                  className={`px-3 py-1 rounded-lg transition-all flex items-center gap-1.5 ${
-                    currentView === 'overview'
-                      ? 'bg-white/10 text-white font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  <span>Overview</span>
-                </button>
-
-                <button
-                  onClick={() => handleSwitchView('terminal')}
-                  className={`px-3 py-1 rounded-lg transition-all flex items-center gap-1.5 ${
-                    currentView === 'terminal'
-                      ? 'bg-emerald-950 text-emerald-300 font-semibold border border-emerald-500/40'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>CLI</span>
-                </button>
-              </div>
-
-              {/* Audio & CRT Controls */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={toggleSound}
-                  className="text-xs font-mono text-cyan-400 p-1.5 rounded-lg border border-white/10 bg-black/40 hover:bg-white/5"
-                  title="Toggle SFX"
-                >
-                  {soundEnabled ? '🔊 SFX' : '🔇 MUTED'}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Main Navigation */}
+          {/* Sticky Secondary Navigation */}
           <Navbar
             profile={profile}
             currency={currency}
@@ -232,41 +184,17 @@ export default function App() {
             onToggleSound={toggleSound}
             crtEnabled={crtEnabled}
             onToggleCRT={toggleCRT}
+            onOpenCommandPalette={() => setCommandPaletteOpen(true)}
           />
 
           <main className="flex-1">
-            {/* Hero Section */}
-            <Hero
-              profile={profile}
-              onOpenContact={() => scrollToContact()}
-              onOpenEstimator={scrollToEstimator}
-            />
-
-            {/* Bryan Garage Scroll Gate Prompt */}
-            <div className="py-8 bg-black/60 border-y border-cyan-500/20 text-center font-mono">
-              <div className="max-w-2xl mx-auto px-4">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-xs sm:text-sm">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
-                  <span>rumpa@garage ~ % showcase --3d-timeline</span>
-                </div>
-                <div className="mt-3">
-                  <button
-                    onClick={() => handleSwitchView('showcase')}
-                    className="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-bold shadow-lg shadow-cyan-600/30 transition-all"
-                  >
-                    ENTER 3D TIMELINE CHAMBER ➔
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Embedded 3D Timeline Section */}
+            {/* Embedded 3D Timeline Chain Section */}
             <TimelineShowcase
               onSelectProject={(proj) => setSelectedProject(proj)}
               onOpenContact={(note) => scrollToContact(note)}
             />
 
-            {/* Selected Projects Matrix */}
+            {/* Selected Projects Bento Grid */}
             <ProjectsSection
               onSelectProject={(proj) => setSelectedProject(proj)}
               onOpenContact={(note) => scrollToContact(note)}
@@ -296,25 +224,25 @@ export default function App() {
               onApplyEstimateToContact={handleApplyEstimate}
             />
 
-            {/* Speed Audit Benchmark */}
+            {/* Website Speed & Core Web Vitals Benchmark */}
             <SpeedComparisonAudit />
 
-            {/* About & Skills */}
+            {/* About, Skills & Engineering Roadmap */}
             <AboutSection
               profile={profile}
               onOpenContact={() => scrollToContact()}
             />
 
-            {/* Client Testimonials */}
+            {/* Testimonials */}
             <TestimonialsSection />
 
             {/* Engineering Insights */}
             <BlogSection />
 
-            {/* FAQs */}
+            {/* Frequently Asked Questions */}
             <FaqSection />
 
-            {/* High-Tech Contact Intake */}
+            {/* Contact Intake Terminal */}
             <ContactSection
               profile={profile}
               currency={currency}
@@ -323,13 +251,24 @@ export default function App() {
             />
           </main>
 
-          {/* Footer */}
+          {/* Quiet Footer */}
           <Footer
             profile={profile}
             onOpenSettings={() => setSettingsOpen(true)}
           />
         </>
       )}
+
+      {/* Interactive Command Palette Modal (Ctrl+K / ⌘K) */}
+      <CommandPaletteModal
+        isOpen={commandPaletteOpen}
+        onClose={() => setCommandPaletteOpen(false)}
+        onNavigate={scrollToSection}
+        onToggleSound={toggleSound}
+        soundEnabled={soundEnabled}
+        onToggleCRT={toggleCRT}
+        crtEnabled={crtEnabled}
+      />
 
       {/* Case Study Deep Inspector Modal */}
       <ProjectModal

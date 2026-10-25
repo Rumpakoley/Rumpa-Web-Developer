@@ -3,7 +3,6 @@ import { DeveloperProfile } from '../types';
 import {
   Mail,
   MessageCircle,
-  Calendar,
   Send,
   CheckCircle2,
   Copy,
@@ -12,7 +11,6 @@ import {
   Clock,
   ShieldCheck,
   Terminal,
-  Paperclip,
 } from 'lucide-react';
 import { sound } from '../utils/audio';
 
@@ -113,12 +111,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   )}`;
 
   return (
-    <section id="contact" className="py-20 md:py-28 relative border-t border-cyan-500/20 bg-[#07090e] bg-tech-dots">
+    <section id="contact" className="py-20 md:py-28 relative border-t border-amber-500/20 bg-[#0c0d11] bg-garage-scanlines">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Section Header */}
         <div className="max-w-2xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
             <Terminal className="w-3.5 h-3.5" />
             <span>COMMUNICATION TRANSMISSION TERMINAL</span>
           </div>
@@ -132,19 +130,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
-          {/* Left Column: Direct channels and communication guarantees */}
+          {/* Left Column: Direct channels */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-[#0b0e18] border border-cyan-500/30 rounded-2xl p-6 sm:p-7 shadow-xl">
+            <div className="bg-[#121319] border border-amber-500/30 rounded-2xl p-6 sm:p-7 shadow-xl">
               <h3 className="text-lg font-bold text-white font-display mb-4 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
                 <span>Direct Contact Coordinates</span>
               </h3>
 
               <div className="space-y-4 text-xs sm:text-sm">
                 {/* Email Item */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5">
+                <div className="flex items-center justify-between p-3.5 rounded-xl bg-black/50 border border-white/5">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400">
+                    <div className="w-9 h-9 rounded-lg bg-amber-950 flex items-center justify-center text-amber-400">
                       <Mail className="w-4 h-4" />
                     </div>
                     <div>
@@ -157,7 +155,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
                     title="Copy email to clipboard"
                   >
-                    {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedEmail ? <Check className="w-3.5 h-3.5 text-amber-400" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
 
@@ -182,22 +180,22 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </a>
 
                 {/* Location Item */}
-                <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
+                <div className="p-3.5 rounded-xl bg-black/50 border border-white/5">
                   <div className="text-[10px] font-mono text-slate-400 uppercase">HQ Station & Availability</div>
                   <div className="font-mono text-white text-xs mt-0.5">{profile.location}</div>
-                  <div className="text-emerald-400 text-[11px] font-mono mt-1">● Current Status: {profile.availability}</div>
+                  <div className="text-amber-400 text-[11px] font-mono mt-1">● Current Status: {profile.availability}</div>
                 </div>
               </div>
             </div>
 
             {/* Service Level Agreement */}
-            <div className="p-5 rounded-2xl bg-black/40 border border-white/10 space-y-3">
-              <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
+            <div className="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-3">
+              <div className="text-xs font-mono text-amber-400 uppercase tracking-wider">
                 Engineering Guarantees
               </div>
               <div className="space-y-2 text-xs text-slate-300">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                  <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span>Guaranteed response within 24 business hours.</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -205,31 +203,31 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <span>100% IP & Code Ownership transferred upon deployment.</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span>Fixed, transparent milestone pricing with zero hidden surcharges.</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Interactive Intake Form / Transmission Panel */}
+          {/* Right Column: Intake Form */}
           <div className="lg:col-span-7">
-            <div className="bg-[#0b0e18] border border-cyan-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+            <div className="bg-[#121319] border border-amber-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
               
               {submitted ? (
                 <div className="text-center py-10 space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-2xl animate-bounce">
+                  <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center mx-auto text-2xl animate-bounce">
                     🚀
                   </div>
                   <h3 className="text-2xl font-bold text-white font-display">Transmission Dispatched!</h3>
                   <p className="text-slate-300 text-sm max-w-md mx-auto font-light leading-relaxed">
-                    Thank you, <span className="text-cyan-300 font-semibold">{formData.name}</span>. Your project parameters have been securely logged. I will review your requirements and respond with a comprehensive scope within 24 hours.
+                    Thank you, <span className="text-amber-300 font-semibold">{formData.name}</span>. Your project parameters have been securely logged. I will review your requirements and respond with a comprehensive scope within 24 hours.
                   </p>
 
                   <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
                     <a
                       href={mailtoUrl}
-                      className="px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-semibold flex items-center gap-1.5 shadow-md shadow-cyan-600/30"
+                      className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-semibold flex items-center gap-1.5 shadow-md shadow-amber-600/30"
                     >
                       <Mail className="w-3.5 h-3.5" />
                       <span>Open in Email App</span>
@@ -279,7 +277,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     </div>
                   )}
 
-                  {/* Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[11px] font-mono text-slate-300 uppercase mb-1">
@@ -294,7 +291,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                           sound.playKey();
                           setFormData({ ...formData, name: e.target.value });
                         }}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors"
                       />
                     </div>
 
@@ -311,12 +308,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                           sound.playKey();
                           setFormData({ ...formData, email: e.target.value });
                         }}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors"
                       />
                     </div>
                   </div>
 
-                  {/* Phone & Project Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[11px] font-mono text-slate-300 uppercase mb-1">
@@ -330,7 +326,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                           sound.playKey();
                           setFormData({ ...formData, phone: e.target.value });
                         }}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors"
                       />
                     </div>
 
@@ -344,7 +340,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                           sound.playClick();
                           setFormData({ ...formData, projectType: e.target.value });
                         }}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#0e121d] border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#191a22] border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors"
                       >
                         <option value="Landing Page">Landing Page</option>
                         <option value="Business Website">Complete Business Website</option>
@@ -355,7 +351,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     </div>
                   </div>
 
-                  {/* Budget & Timeline */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[11px] font-mono text-slate-300 uppercase mb-1">
@@ -366,7 +361,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder={currency === 'INR' ? '₹25,000 - ₹50,000' : '$500 - $1,000'}
                         value={formData.budget}
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors"
                       />
                     </div>
 
@@ -377,7 +372,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       <select
                         value={formData.timeline}
                         onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#0e121d] border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#191a22] border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors"
                       >
                         <option value="Urgent (Within 10 Days)">Urgent (Within 10 Days)</option>
                         <option value="2 - 3 Weeks">2 - 3 Weeks (Standard)</option>
@@ -387,7 +382,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     </div>
                   </div>
 
-                  {/* Message / Specifications */}
                   <div>
                     <label className="block text-[11px] font-mono text-slate-300 uppercase mb-1">
                       System Scope / Message *
@@ -395,26 +389,25 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     <textarea
                       required
                       rows={4}
-                      placeholder="Briefly describe your business, key goals, target audience, or paste reference links (e.g. bryangarage.dev)..."
+                      placeholder="Briefly describe your business, key goals, target audience, or paste reference links..."
                       value={formData.message}
                       onChange={(e) => {
                         sound.playKey();
                         setFormData({ ...formData, message: e.target.value });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 font-mono transition-colors resize-y"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:border-amber-500 font-mono transition-colors resize-y"
                     />
                   </div>
 
-                  {/* Submission Status or Trigger */}
                   {submitting ? (
-                    <div className="p-4 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-center font-mono text-xs text-cyan-300 space-y-2">
+                    <div className="p-4 rounded-xl bg-amber-950/60 border border-amber-500/40 text-center font-mono text-xs text-amber-300 space-y-2">
                       <div className="animate-spin text-lg inline-block">⚙️</div>
                       <p>{submissionStep}</p>
                     </div>
                   ) : (
                     <button
                       type="submit"
-                      className="w-full py-3.5 text-xs sm:text-sm font-semibold text-white bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 rounded-xl shadow-lg shadow-cyan-600/30 transition-all flex items-center justify-center gap-2 font-mono uppercase tracking-wider"
+                      className="w-full py-3.5 text-xs sm:text-sm font-semibold text-white bg-amber-600 hover:bg-amber-500 active:bg-amber-700 rounded-xl shadow-lg shadow-amber-600/30 transition-all flex items-center justify-center gap-2 font-mono uppercase tracking-wider"
                     >
                       <Send className="w-4 h-4" />
                       <span>Encrypt & Transmit Project Inquiry</span>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, Send, CheckCircle2, CornerDownLeft, Sparkles, Volume2, Monitor } from 'lucide-react';
+import { Terminal, CornerDownLeft, Volume2, Monitor } from 'lucide-react';
 import { DeveloperProfile, Project } from '../types';
 import { PROJECTS } from '../data/portfolioData';
 import { sound } from '../utils/audio';
@@ -41,8 +41,8 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       command: 'boot --garage-os',
       output: (
         <div className="space-y-1 text-slate-300">
-          <p className="text-emerald-400 font-semibold">GARAGE OS v2.6.4 (x86_64-pc-none-elf) [Awwwards-Class Showcase]</p>
-          <p className="text-slate-400">All subsystems nominal. Type <span className="text-cyan-400 font-mono font-bold">help</span> to view available terminal routines.</p>
+          <p className="text-amber-400 font-semibold">GARAGE OS v1.8 (x86_64-pc-none-elf) [AI Garage Station]</p>
+          <p className="text-slate-400">All subsystems nominal. Type <span className="text-amber-400 font-mono font-bold">help</span> to view available terminal routines.</p>
         </div>
       ),
       timestamp: '00:01:14',
@@ -51,8 +51,8 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       id: 'init-2',
       command: 'showcase --3d-timeline',
       output: (
-        <p className="text-cyan-300">
-          ✓ Dual-axis 3D timeline loaded (10 nodes active). Explore side projects above and commercial works below.
+        <p className="text-amber-300">
+          ✓ Dual-axis 3D timeline online (10 glass cards active). Explore side projects above and commercial works below.
         </p>
       ),
       timestamp: '00:01:15',
@@ -83,16 +83,16 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       case 'help':
         outputNode = (
           <div className="space-y-1.5 text-xs text-slate-300">
-            <p className="text-cyan-400 font-bold mb-1">AVAILABLE GARAGE ROUTINES:</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">showcase</span> Jump to 3D Timeline Chain</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">projects</span> List all 10 projects and experiments</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">inspect &lt;id&gt;</span> Open architecture modal for a project</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">cat profile</span> Display developer credentials and bio</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">skills</span> Print engineering competency matrix</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">contact</span> Launch inquiry dispatch sequence</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">sound</span> Toggle synthesized audio feedback ({soundEnabled ? 'ON' : 'OFF'})</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">crt</span> Toggle CRT scanline shader ({crtEnabled ? 'ON' : 'OFF'})</p>
-            <p><span className="text-emerald-400 font-mono w-28 inline-block">clear</span> Clear terminal buffer</p>
+            <p className="text-amber-400 font-bold mb-1">AVAILABLE GARAGE ROUTINES:</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">showcase</span> Jump to 3D Timeline Chain</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">projects</span> List all 10 projects and experiments</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">inspect &lt;id&gt;</span> Open architecture modal for a project</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">cat profile</span> Display developer credentials and bio</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">skills</span> Print engineering competency matrix</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">contact</span> Launch inquiry dispatch sequence</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">sound</span> Toggle synthesized audio feedback ({soundEnabled ? 'ON' : 'OFF'})</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">crt</span> Toggle CRT scanline shader ({crtEnabled ? 'ON' : 'OFF'})</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">clear</span> Clear terminal buffer</p>
           </div>
         );
         break;
@@ -100,7 +100,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       case 'showcase':
       case 'timeline':
         outputNode = (
-          <p className="text-cyan-300">
+          <p className="text-amber-300">
             Navigating to 3D Timeline Chain...
           </p>
         );
@@ -115,12 +115,12 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
             {PROJECTS.map((p) => (
               <div key={p.id} className="flex items-center gap-3">
                 <span className="text-slate-500 font-mono">{p.completionYear}</span>
-                <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${p.track === 'side_project' ? 'bg-cyan-950 text-cyan-400' : 'bg-indigo-950 text-indigo-400'}`}>
+                <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${p.track === 'side_project' ? 'bg-amber-950 text-amber-400' : 'bg-orange-950 text-orange-400'}`}>
                   {p.track === 'side_project' ? 'LAB' : 'PROD'}
                 </span>
                 <button
                   onClick={() => onSelectProject(p)}
-                  className="text-white hover:text-cyan-300 underline font-mono text-left"
+                  className="text-white hover:text-amber-300 underline font-mono text-left"
                 >
                   {p.id}
                 </button>
@@ -137,7 +137,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
         } else {
           const found = PROJECTS.find((p) => p.id.toLowerCase() === arg || p.id.toLowerCase().includes(arg));
           if (found) {
-            outputNode = <p className="text-emerald-400">Opening architecture inspector for {found.title}...</p>;
+            outputNode = <p className="text-amber-400">Opening architecture inspector for {found.title}...</p>;
             onSelectProject(found);
           } else {
             outputNode = <p className="text-rose-400">Error: Project '{arg}' not found. Run 'projects' to see valid IDs.</p>;
@@ -149,10 +149,10 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       case 'profile':
       case 'bio':
         outputNode = (
-          <div className="space-y-1.5 text-xs text-slate-300 border-l-2 border-cyan-500 pl-3">
+          <div className="space-y-1.5 text-xs text-slate-300 border-l-2 border-amber-500 pl-3">
             <p className="text-white font-bold text-sm">{profile.name} — {profile.role}</p>
             <p className="text-slate-300">{profile.bio}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-[11px] font-mono text-cyan-300">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-[11px] font-mono text-amber-300">
               <div>XP: {profile.yearsExperience} Years</div>
               <div>SHIPPED: {profile.projectsCompleted} Projects</div>
               <div>SATISFACTION: {profile.satisfactionRate}</div>
@@ -165,7 +165,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       case 'skills':
         outputNode = (
           <div className="space-y-1.5 text-xs font-mono">
-            <p className="text-cyan-400 font-bold mb-1">ENGINEERING STACK:</p>
+            <p className="text-amber-400 font-bold mb-1">ENGINEERING STACK:</p>
             <div>React 19 & Next.js     [████████████████████] 99% EXPERT</div>
             <div>TypeScript & Node.js    [██████████████████░░] 94% ADVANCED</div>
             <div>Tailwind CSS & Canvas   [████████████████████] 98% EXPERT</div>
@@ -177,7 +177,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
 
       case 'contact':
         outputNode = (
-          <p className="text-emerald-300">
+          <p className="text-amber-300">
             Routing packet to intake dispatch console...
           </p>
         );
@@ -187,7 +187,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       case 'sound':
         onToggleSound();
         outputNode = (
-          <p className="text-cyan-300">
+          <p className="text-amber-300">
             Synthesized Web Audio SFX toggled. Current state: {!soundEnabled ? 'ONLINE 🔊' : 'MUTED 🔇'}
           </p>
         );
@@ -210,7 +210,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       default:
         outputNode = (
           <p className="text-rose-400">
-            Command not recognized: '{cmd}'. Type <span className="text-cyan-400 font-mono font-bold">help</span> for valid routines.
+            Command not recognized: '{cmd}'. Type <span className="text-amber-400 font-mono font-bold">help</span> for valid routines.
           </p>
         );
         break;
@@ -256,29 +256,29 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
   const quickCommands = ['showcase', 'projects', 'cat profile', 'skills', 'contact', 'sound', 'crt', 'clear'];
 
   return (
-    <section id="terminal" className="py-16 md:py-24 border-t border-cyan-500/20 relative bg-black/80">
+    <section id="terminal" className="py-16 md:py-24 border-t border-amber-500/20 relative bg-black/80 bg-garage-scanlines">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Terminal Header Bar */}
-        <div className="bg-[#0e121b] border border-cyan-500/30 rounded-t-2xl px-4 py-3 flex items-center justify-between">
+        <div className="bg-[#181921] border border-amber-500/40 rounded-t-2xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-rose-500/80" />
             <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-            <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+            <div className="w-3 h-3 rounded-full bg-orange-500/80" />
+            <div className="w-3 h-3 rounded-full bg-amber-700/80" />
             <span className="text-xs font-mono text-slate-400 ml-2">
               rumpa@garage: ~/portfolio (sh)
             </span>
           </div>
 
           <div className="flex items-center gap-2 text-xs font-mono">
-            <span className="hidden sm:inline text-emerald-400 flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="hidden sm:inline text-amber-400 flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               ONLINE
             </span>
             <button
               onClick={onToggleSound}
               className={`px-2 py-0.5 rounded border text-[11px] ${
-                soundEnabled ? 'bg-cyan-950 text-cyan-300 border-cyan-500/40' : 'bg-black text-slate-400 border-white/10'
+                soundEnabled ? 'bg-amber-950 text-amber-300 border-amber-500/40' : 'bg-black text-slate-400 border-white/10'
               }`}
               title="Toggle sound"
             >
@@ -297,12 +297,12 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
         </div>
 
         {/* Terminal Body */}
-        <div className="bg-[#07090e] border-x border-b border-cyan-500/30 rounded-b-2xl p-4 sm:p-6 font-mono text-xs shadow-2xl min-h-[360px] max-h-[500px] overflow-y-auto flex flex-col justify-between">
+        <div className="bg-[#0b0c10] border-x border-b border-amber-500/40 rounded-b-2xl p-4 sm:p-6 font-mono text-xs shadow-2xl min-h-[360px] max-h-[500px] overflow-y-auto flex flex-col justify-between">
           <div className="space-y-4">
             {logs.map((log) => (
               <div key={log.id} className="space-y-1">
                 <div className="flex items-center gap-2 text-slate-400">
-                  <span className="text-cyan-400 font-semibold">rumpa@garage:~$</span>
+                  <span className="text-amber-400 font-semibold">rumpa@garage:~$</span>
                   <span className="text-white font-bold">{log.command}</span>
                   <span className="text-[10px] text-slate-600 ml-auto">{log.timestamp}</span>
                 </div>
@@ -314,23 +314,21 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
 
           {/* Input & Quick Chips */}
           <div className="pt-6 border-t border-white/10 mt-6">
-            {/* Quick Click Suggestions */}
             <div className="flex flex-wrap items-center gap-1.5 mb-3">
               <span className="text-[11px] text-slate-500 mr-1">QUICK ACTIONS:</span>
               {quickCommands.map((qc) => (
                 <button
                   key={qc}
                   onClick={() => handleCommand(qc)}
-                  className="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/10 text-[11px] transition-all"
+                  className="px-2 py-0.5 rounded bg-white/5 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 border border-white/10 text-[11px] transition-all"
                 >
                   {qc}
                 </button>
               ))}
             </div>
 
-            {/* Command input prompt */}
-            <div className="flex items-center gap-2 bg-black/60 border border-cyan-500/30 rounded-xl px-3 py-2">
-              <span className="text-emerald-400 font-bold font-mono">rumpa@garage:~$</span>
+            <div className="flex items-center gap-2 bg-black/70 border border-amber-500/40 rounded-xl px-3 py-2">
+              <span className="text-amber-400 font-bold font-mono">rumpa@garage:~$</span>
               <input
                 type="text"
                 value={inputVal}
@@ -341,7 +339,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
               />
               <button
                 onClick={() => handleCommand(inputVal)}
-                className="p-1 rounded bg-cyan-600/30 hover:bg-cyan-600/60 text-cyan-300 transition-colors"
+                className="p-1 rounded bg-amber-600/30 hover:bg-amber-600/60 text-amber-300 transition-colors"
                 title="Execute command"
               >
                 <CornerDownLeft className="w-3.5 h-3.5" />

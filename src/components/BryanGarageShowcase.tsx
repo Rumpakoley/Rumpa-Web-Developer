@@ -15,11 +15,8 @@ import {
   Layers,
   Sparkles,
   Maximize2,
-  Compass,
-  RotateCcw,
-  Zap,
-  Globe,
-  Code2,
+  MoreHorizontal,
+  Home,
 } from 'lucide-react';
 
 interface BryanGarageShowcaseProps {
@@ -52,7 +49,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
   // 10 cards ordered chronologically
   const timelineProjects = PROJECTS.slice(0, 10);
   const cardWidth = 360;
-  const cardGap = 40;
+  const cardGap = 44;
   const totalWidth = timelineProjects.length * (cardWidth + cardGap);
 
   // Wheel handling to scrub horizontally
@@ -60,11 +57,11 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
     e.preventDefault();
     const delta = e.deltaY !== 0 ? e.deltaY : e.deltaX;
     setScrollX((prev) => {
-      const next = Math.max(0, Math.min(totalWidth - 600, prev + delta * 1.5));
+      const next = Math.max(0, Math.min(totalWidth - 550, prev + delta * 1.5));
       const newIndex = Math.round(next / (cardWidth + cardGap));
       if (newIndex !== activeCardIndex && newIndex >= 0 && newIndex < timelineProjects.length) {
         setActiveCardIndex(newIndex);
-        sound.playChime(500 + newIndex * 40);
+        sound.playChime(480 + newIndex * 40);
       }
       return next;
     });
@@ -78,12 +75,12 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
-    const next = Math.max(0, Math.min(totalWidth - 600, startX - e.clientX));
+    const next = Math.max(0, Math.min(totalWidth - 550, startX - e.clientX));
     setScrollX(next);
     const newIndex = Math.round(next / (cardWidth + cardGap));
     if (newIndex !== activeCardIndex && newIndex >= 0 && newIndex < timelineProjects.length) {
       setActiveCardIndex(newIndex);
-      sound.playChime(500 + newIndex * 40);
+      sound.playChime(480 + newIndex * 40);
     }
   };
 
@@ -100,7 +97,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
     
     setActiveCardIndex(nextIndex);
     setScrollX(nextIndex * (cardWidth + cardGap));
-    sound.playChime(500 + nextIndex * 40);
+    sound.playChime(480 + nextIndex * 40);
   };
 
   // Jump to specific year/index
@@ -108,7 +105,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
     sound.playClick(950);
     setActiveCardIndex(index);
     setScrollX(index * (cardWidth + cardGap));
-    sound.playChime(500 + index * 40);
+    sound.playChime(480 + index * 40);
   };
 
   // Key navigation
@@ -128,30 +125,30 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
 
   return (
     <div 
-      className="relative w-full h-screen overflow-hidden bg-[#05070B] text-slate-100 flex flex-col justify-between select-none bg-tech-grid"
+      className="relative w-full h-screen overflow-hidden bg-garage-scanlines text-slate-100 flex flex-col justify-between select-none"
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      {/* 3D Atmospheric Lighting */}
+      {/* 3D Atmospheric Warm Amber Lighting */}
       <div 
         aria-hidden="true" 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none" 
       />
       <div 
         aria-hidden="true" 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-orange-600/15 rounded-full blur-[160px] pointer-events-none" 
       />
 
       {/* ======================================================== */}
       {/* TOP HUD: Minimalist Bryan Garage Header                 */}
       {/* ======================================================== */}
-      <header className="relative z-30 px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur-md bg-black/40">
+      <header className="relative z-30 px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur-md bg-black/50">
         {/* Left: Brand Identity & Mode indicator */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+          <div className="w-8 h-8 rounded-lg bg-amber-950/80 border border-amber-500/40 flex items-center justify-center text-amber-400">
             <Terminal className="w-4 h-4" />
           </div>
           <div>
@@ -159,13 +156,13 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
               <span className="text-sm font-bold tracking-tight text-white font-display">
                 {profile.name} // AI GARAGE
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950 text-cyan-400 border border-cyan-500/30">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-950 text-amber-400 border border-amber-500/40">
                 SHOWCASE v3.0
               </span>
             </div>
             <div className="text-[10px] font-mono text-slate-400 flex items-center gap-2">
-              <span className="text-emerald-400 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-amber-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                 3D TIMELINE CHAIN
               </span>
               <span className="text-slate-600">|</span>
@@ -185,7 +182,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
               }}
               className={`px-2.5 py-1 text-[11px] font-mono rounded-lg transition-all ${
                 activeCardIndex === idx
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold shadow-sm'
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white'
               }`}
               title={`${proj.completionYear} — ${proj.title.split('—')[0]}`}
@@ -205,12 +202,12 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
             }}
             className={`p-2 rounded-lg border text-xs font-mono transition-all flex items-center gap-1.5 ${
               soundEnabled
-                ? 'bg-cyan-950/80 text-cyan-300 border-cyan-500/40'
+                ? 'bg-amber-950/80 text-amber-300 border-amber-500/40'
                 : 'bg-black/40 text-slate-500 border-white/10 hover:text-slate-300'
             }`}
             title="Toggle Web Audio SFX"
           >
-            {soundEnabled ? <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> : <VolumeX className="w-3.5 h-3.5" />}
+            {soundEnabled ? <Volume2 className="w-3.5 h-3.5 text-amber-400" /> : <VolumeX className="w-3.5 h-3.5" />}
             <span className="hidden lg:inline text-[10px]">{soundEnabled ? 'SFX ON' : 'MUTED'}</span>
           </button>
 
@@ -231,30 +228,17 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
             <span className="hidden lg:inline text-[10px]">{crtEnabled ? 'CRT ON' : 'CRT OFF'}</span>
           </button>
 
-          {/* Switch to Full Portfolio Overview */}
+          {/* Back to Home / Landing */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               sound.playClick();
               onSwitchView('overview');
             }}
-            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 text-xs font-mono transition-all flex items-center gap-1"
+            className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-mono font-semibold shadow-md shadow-amber-600/30 transition-all flex items-center gap-1"
           >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Overview</span>
-          </button>
-
-          {/* Switch to Garage CLI */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              sound.playClick();
-              onSwitchView('terminal');
-            }}
-            className="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-mono font-semibold shadow-md shadow-cyan-600/30 transition-all flex items-center gap-1"
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            <span>CLI</span>
+            <Home className="w-3.5 h-3.5" />
+            <span>Landing Page</span>
           </button>
         </div>
       </header>
@@ -274,7 +258,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
         >
           {/* Central Glowing Timeline Rail running across all cards */}
           <div 
-            className="absolute top-1/2 -translate-y-1/2 left-0 h-1.5 bg-gradient-to-r from-cyan-400 via-indigo-500 to-emerald-400 shadow-[0_0_20px_rgba(6,182,212,0.8)] z-0 rounded-full"
+            className="absolute top-1/2 -translate-y-1/2 left-0 h-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.8)] z-0 rounded-full"
             style={{ width: `${totalWidth + 400}px` }}
           />
 
@@ -300,8 +284,8 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                     isUpper ? 'bottom-1/2 h-16' : 'top-1/2 h-16'
                   } ${
                     isActive
-                      ? 'bg-gradient-to-b from-cyan-400 to-indigo-400 shadow-[0_0_10px_#06b6d4]'
-                      : 'bg-white/20'
+                      ? 'bg-gradient-to-b from-amber-400 to-orange-400 shadow-[0_0_10px_#f59e0b]'
+                      : 'bg-white/15'
                   }`}
                 />
 
@@ -309,7 +293,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                 <div 
                   className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full border-2 flex items-center justify-center z-20 cursor-pointer transition-all ${
                     isActive 
-                      ? 'bg-cyan-950 border-cyan-400 shadow-[0_0_15px_#06b6d4] scale-125' 
+                      ? 'bg-amber-950 border-amber-400 shadow-[0_0_15px_#f59e0b] scale-125' 
                       : 'bg-black border-slate-600 hover:border-slate-400'
                   }`}
                   onClick={(e) => {
@@ -317,7 +301,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                     jumpToIndex(idx);
                   }}
                 >
-                  <div className={`w-2.5 h-2.5 rounded-full ${isActive ? 'bg-cyan-400 animate-ping' : 'bg-slate-500'}`} />
+                  <div className={`w-2.5 h-2.5 rounded-full ${isActive ? 'bg-amber-400 animate-ping' : 'bg-slate-500'}`} />
                 </div>
 
                 {/* Year Label on Node */}
@@ -326,7 +310,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                     isUpper ? 'translate-y-5' : '-translate-y-8'
                   } text-[10px] font-mono px-2 py-0.5 rounded-md border transition-all ${
                     isActive 
-                      ? 'bg-cyan-950 text-cyan-300 border-cyan-500/50 font-bold' 
+                      ? 'bg-amber-950 text-amber-300 border-amber-500/50 font-bold' 
                       : 'bg-black/60 text-slate-500 border-white/5'
                   }`}
                 >
@@ -344,8 +328,8 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                     isUpper ? '-translate-y-[150px]' : 'translate-y-[150px]'
                   } ${
                     isActive
-                      ? 'bg-[#0d1322]/85 border-cyan-400 shadow-[0_0_35px_rgba(6,182,212,0.35)] scale-105'
-                      : 'bg-[#0a0e19]/60 border-white/10 hover:border-cyan-500/40 opacity-75 hover:opacity-100 hover:scale-100'
+                      ? 'bg-[#181920]/90 border-amber-400 shadow-[0_0_35px_rgba(245,158,11,0.35)] scale-105'
+                      : 'bg-[#111217]/70 border-white/10 hover:border-amber-500/40 opacity-75 hover:opacity-100 hover:scale-100'
                   }`}
                 >
                   {/* Card Top Row */}
@@ -353,15 +337,15 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                     <div className="flex items-center justify-between gap-2 text-xs font-mono mb-2.5">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${
                         isUpper 
-                          ? 'bg-cyan-950 text-cyan-300 border-cyan-500/40' 
-                          : 'bg-indigo-950 text-indigo-300 border-indigo-500/40'
+                          ? 'bg-amber-950 text-amber-300 border-amber-500/40' 
+                          : 'bg-orange-950 text-orange-300 border-orange-500/40'
                       }`}>
                         {isUpper ? 'GARAGE LAB' : 'COMPANY WORK'}
                       </span>
                       <span className="text-slate-400 text-[11px] font-mono">{project.client}</span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-white font-display tracking-tight mb-1 group-hover:text-cyan-300 transition-colors line-clamp-1">
+                    <h3 className="text-lg font-bold text-white font-display tracking-tight mb-1 group-hover:text-amber-300 transition-colors line-clamp-1">
                       {project.title.split('—')[0]}
                     </h3>
                     <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-4 font-light">
@@ -371,9 +355,9 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
 
                   {/* Card Metrics & Specs */}
                   <div>
-                    <div className="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-3 flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-black/50 border border-white/5 mb-3 flex items-center justify-between">
                       <span className="text-[10px] font-mono text-slate-400 uppercase">Impact Metric</span>
-                      <span className="text-xs font-mono font-bold text-cyan-400">{project.keyMetric.value}</span>
+                      <span className="text-xs font-mono font-bold text-amber-400">{project.keyMetric.value}</span>
                     </div>
 
                     <div className="flex flex-wrap gap-1 mb-3">
@@ -388,7 +372,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                     </div>
 
                     {/* Action Bar */}
-                    <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-xs font-mono text-cyan-400 group-hover:text-cyan-300">
+                    <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-xs font-mono text-amber-400 group-hover:text-amber-300">
                       <span className="flex items-center gap-1 text-[11px]">
                         Inspect System Architecture
                       </span>
@@ -403,14 +387,14 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
       </div>
 
       {/* ======================================================== */}
-      {/* BOTTOM CONTROL DOCK: Scrubber, Navigation, & Terminal    */}
+      {/* BOTTOM CONTROL DOCK: Scrubber & Telemetry               */}
       {/* ======================================================== */}
       <footer className="relative z-30 px-6 py-4 border-t border-white/10 backdrop-blur-md bg-black/50 flex flex-col sm:flex-row items-center justify-between gap-4">
         
         {/* Left: Active Card Info */}
         <div className="flex items-center gap-3">
           <div className="text-xs font-mono text-slate-400">
-            <span className="text-cyan-400 font-bold">[{activeCardIndex + 1} / 10]</span>{' '}
+            <span className="text-amber-400 font-bold">[{activeCardIndex + 1} / 10]</span>{' '}
             <span className="text-white font-semibold">{activeProject.title.split('—')[0]}</span>
             <span className="hidden md:inline text-slate-500"> · {activeProject.type}</span>
           </div>
@@ -426,14 +410,13 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
             <ChevronLeft className="w-4 h-4" />
           </button>
 
-          {/* Interactive Range Track */}
           <input
             type="range"
             min={0}
             max={timelineProjects.length - 1}
             value={activeCardIndex}
             onChange={(e) => jumpToIndex(parseInt(e.target.value, 10))}
-            className="flex-1 accent-cyan-400 cursor-pointer h-1.5 bg-slate-800 rounded-lg appearance-none"
+            className="flex-1 accent-amber-400 cursor-pointer h-1.5 bg-slate-800 rounded-lg appearance-none"
           />
 
           <button
@@ -445,18 +428,14 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
           </button>
         </div>
 
-        {/* Right: Keyboard navigation hint & Direct Contact Trigger */}
+        {/* Right: Direct Contact Trigger */}
         <div className="flex items-center gap-3">
-          <span className="hidden xl:inline text-[11px] font-mono text-slate-500">
-            [SCROLL WHEEL OR DRAG TO PAN]
-          </span>
-
           <button
             onClick={() => {
               sound.playClick();
-              onOpenContact(`Hi Rumpa, I explored the 3D Showcase and I want to build a project like ${activeProject.title}`);
+              onOpenContact(`Hi Rumpa, I explored your 3D Showcase and would like to build a project like ${activeProject.title}`);
             }}
-            className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-semibold shadow-md shadow-cyan-600/30 transition-all flex items-center gap-1.5"
+            className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-semibold shadow-md shadow-amber-600/30 transition-all flex items-center gap-1.5"
           >
             <span>Initialize Project</span>
             <ArrowRight className="w-3.5 h-3.5" />
