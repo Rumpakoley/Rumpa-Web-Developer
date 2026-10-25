@@ -238,3 +238,95 @@
   animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
   opacity: 0;
 }
+
+/* Staggered Line / Clause Entrance for Hero Description */
+@keyframes textClauseReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-clause {
+  display: inline;
+  animation: textClauseReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.delay-clause-1 { animation-delay: 0.08s; }
+.delay-clause-2 { animation-delay: 0.22s; }
+.delay-clause-3 { animation-delay: 0.38s; }
+.delay-clause-4 { animation-delay: 0.54s; }
+.delay-clause-5 { animation-delay: 0.70s; }
+.delay-clause-sub { animation-delay: 0.88s; }
+
+/* Interactive Keyword Highlight & Glow Transitions */
+.hero-highlight-link {
+  position: relative;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0 4px;
+  margin: 0 -2px;
+  border-radius: 4px;
+  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+.hero-highlight-link::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  border-radius: 2px;
+  opacity: 0.45;
+  transition: all 0.28s ease;
+}
+
+.hero-highlight-link:hover {
+  color: #fbbf24;
+  background-color: rgba(245, 158, 11, 0.12);
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+  transform: translateY(-1.5px);
+}
+
+.hero-highlight-link:hover::after {
+  opacity: 1;
+  height: 2px;
+  left: 2px;
+  right: 2px;
+  box-shadow: 0 0 8px #f59e0b;
+}
+
+/* Subtle Phosphor Text Shimmer */
+@keyframes textPhosphorShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.hero-shimmer-title {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 35%,
+    #f59e0b 50%,
+    #ffffff 65%,
+    #ffffff 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textPhosphorShimmer 7s ease-in-out infinite;
+}

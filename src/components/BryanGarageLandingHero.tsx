@@ -223,23 +223,82 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
 
         {/* Main Content Row: Left Hero Statement + Right Telemetry Column (Exact match to reference site) */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 animate-hero-fade">
-          {/* Left Column: Hero Description (Left aligned) */}
-          <div className="max-w-3xl lg:max-w-4xl text-left">
-            <h1 className="text-2xl sm:text-4xl md:text-[40px] lg:text-[44px] leading-[1.28] font-normal tracking-tight text-slate-400 font-sans text-left">
-              <span className="font-mono font-black text-white text-3xl sm:text-5xl tracking-widest inline-block mr-2 uppercase">
-                AI
+          {/* Left Column: Hero Description (Left aligned with cascading transitions) */}
+          <div className="max-w-3xl lg:max-w-4xl text-left group">
+            <h1 className="text-2xl sm:text-4xl md:text-[40px] lg:text-[44px] leading-[1.3] font-normal tracking-tight text-slate-400 group-hover:text-slate-300 transition-colors duration-500 font-sans text-left">
+              {/* Clause 1: AI GARAGE by Rumpa Koley */}
+              <span className="animate-clause delay-clause-1 inline">
+                <span className="font-mono font-black text-white text-3xl sm:text-5xl tracking-widest inline-block mr-2 uppercase hero-shimmer-title">
+                  AI
+                </span>{' '}
+                <strong className="text-white font-black tracking-tight uppercase mr-2 hero-shimmer-title">
+                  GARAGE
+                </strong>{' '}
+                <span className="text-slate-300 font-medium">by</span>{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playClick(900);
+                    onOpenContact('Hello Rumpa! Reaching out after reading your AI Garage introduction.');
+                  }}
+                  onMouseEnter={() => sound.playKey()}
+                  className="hero-highlight-link text-white font-bold inline-block text-left"
+                  title="Contact Rumpa Koley"
+                >
+                  {profile.name}
+                </button>
+                <span className="text-slate-400">.</span>
               </span>{' '}
-              <strong className="text-white font-black tracking-tight uppercase">
-                GARAGE
-              </strong>{' '}
-              <span className="text-slate-300 font-medium">by</span>{' '}
-              <strong className="text-white font-bold underline decoration-amber-500/40 underline-offset-4 hover:decoration-amber-400 transition-colors cursor-pointer">
-                {profile.name}
-              </strong>
-              . Born in Kolkata, building fast, award-caliber web experiences for founders worldwide. Four years in: architecting headless commerce at <strong className="text-white font-semibold hover:text-amber-300 transition-colors">Lumina Atelier</strong>, real-time SaaS telemetry at <strong className="text-white font-semibold hover:text-amber-300 transition-colors">Pulse Systems</strong>, and high-performance booking engines. Now building generative UI canvas tools and high-speed web engines.
+
+              {/* Clause 2: Location & Craft */}
+              <span className="animate-clause delay-clause-2 inline">
+                Born in Kolkata, building fast, award-caliber web experiences for founders worldwide.
+              </span>{' '}
+
+              {/* Clause 3: Commercial Track Record - Lumina Atelier */}
+              <span className="animate-clause delay-clause-3 inline">
+                Four years in: architecting headless commerce at{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playClick(850);
+                    onOpenShowcase();
+                  }}
+                  onMouseEnter={() => sound.playKey()}
+                  className="hero-highlight-link text-white font-semibold inline-block text-left"
+                  title="View Lumina Atelier in 3D Timeline"
+                >
+                  Lumina Atelier
+                </button>
+                ,
+              </span>{' '}
+
+              {/* Clause 4: Real-time SaaS telemetry - Pulse Systems */}
+              <span className="animate-clause delay-clause-4 inline">
+                real-time SaaS telemetry at{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playClick(850);
+                    onOpenShowcase();
+                  }}
+                  onMouseEnter={() => sound.playKey()}
+                  className="hero-highlight-link text-white font-semibold inline-block text-left"
+                  title="View Pulse Systems in 3D Timeline"
+                >
+                  Pulse Systems
+                </button>
+                , and high-performance booking engines.
+              </span>{' '}
+
+              {/* Clause 5: Present Focus */}
+              <span className="animate-clause delay-clause-5 inline">
+                Now building generative UI canvas tools and high-speed web engines.
+              </span>
             </h1>
 
-            <p className="mt-6 text-xs sm:text-sm text-slate-500 font-light max-w-2xl leading-relaxed text-left">
+            {/* Subtext Paragraph with Staggered Slide & Blur Fade Transition */}
+            <p className="mt-6 text-xs sm:text-sm text-slate-500 group-hover:text-slate-400 transition-colors duration-500 font-light max-w-2xl leading-relaxed text-left animate-clause delay-clause-sub block">
               I believe software is the most malleable medium we have, and the modern web is the most interesting thing to happen to it.
             </p>
           </div>
