@@ -20,6 +20,7 @@ import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ProfileSettingsModal } from './components/ProfileSettingsModal';
 import { CustomCursor } from './components/CustomCursor';
+import { BootPreloader } from './components/BootPreloader';
 import { sound } from './utils/audio';
 
 export default function App() {
@@ -69,6 +70,7 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [isBooting, setIsBooting] = useState(true);
 
   // Pre-filled contact inquiry state
   const [prefilledScope, setPrefilledScope] = useState<string>('');
@@ -154,6 +156,9 @@ export default function App() {
 
   return (
     <div className={`min-h-screen bg-[#0e0f13] text-slate-100 flex flex-col font-sans selection:bg-amber-600 selection:text-white ${crtEnabled ? 'crt-mode' : ''}`}>
+      {/* Boot Preloader System */}
+      {isBooting && <BootPreloader onComplete={() => setIsBooting(false)} />}
+
       {/* Bryan Garage Signature Paper Plane Cursor */}
       <CustomCursor />
       
