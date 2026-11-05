@@ -42,11 +42,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
 
   const commands = [
     { id: 'showcase', label: '3D Timeline Showcase', category: 'Navigation', icon: Cpu, action: () => onNavigate('showcase') },
-    { id: 'projects', label: 'Selected Projects Matrix', category: 'Navigation', icon: Layers, action: () => onNavigate('projects') },
-    { id: 'terminal', label: 'Garage CLI Interactive Terminal', category: 'Navigation', icon: Terminal, action: () => onNavigate('terminal') },
     { id: 'services', label: 'Services & Fixed Pricing', category: 'Commercial', icon: DollarSign, action: () => onNavigate('services') },
-    { id: 'estimator', label: 'Instant Cost Estimator', category: 'Commercial', icon: DollarSign, action: () => onNavigate('estimator') },
-    { id: 'speed', label: 'Speed & Core Web Vitals Audit', category: 'Engineering', icon: Activity, action: () => onNavigate('speed-audit') },
     { id: 'contact', label: 'Say Hi / Project Transmission', category: 'Direct', icon: Mail, action: () => onNavigate('contact') },
     { id: 'sound', label: `Toggle Audio SFX (${soundEnabled ? 'ON' : 'OFF'})`, category: 'Preferences', icon: Volume2, action: () => onToggleSound() },
     { id: 'crt', label: `Toggle Retro CRT Scanlines (${crtEnabled ? 'ON' : 'OFF'})`, category: 'Preferences', icon: Monitor, action: () => onToggleCRT() },

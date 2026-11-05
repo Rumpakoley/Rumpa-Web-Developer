@@ -6,15 +6,7 @@ import { BryanGarageShowcase } from './components/BryanGarageShowcase';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
 import { Navbar } from './components/Navbar';
 import { TimelineShowcase } from './components/TimelineShowcase';
-import { ProjectsSection } from './components/ProjectsSection';
-import { GarageCLI } from './components/GarageCLI';
 import { ServicesSection } from './components/ServicesSection';
-import { EstimateCalculator } from './components/EstimateCalculator';
-import { SpeedComparisonAudit } from './components/SpeedComparisonAudit';
-import { AboutSection } from './components/AboutSection';
-import { TestimonialsSection } from './components/TestimonialsSection';
-import { BlogSection } from './components/BlogSection';
-import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
@@ -211,53 +203,11 @@ export default function App() {
               onOpenContact={(note) => scrollToContact(note)}
             />
 
-            {/* Selected Projects Bento Grid */}
-            <ProjectsSection
-              onSelectProject={(proj) => setSelectedProject(proj)}
-              onOpenContact={(note) => scrollToContact(note)}
-            />
-
-            {/* Interactive Garage CLI Terminal */}
-            <GarageCLI
-              profile={profile}
-              soundEnabled={soundEnabled}
-              onToggleSound={toggleSound}
-              crtEnabled={crtEnabled}
-              onToggleCRT={toggleCRT}
-              onSelectProject={(proj) => setSelectedProject(proj)}
-              onOpenContact={(note) => scrollToContact(note)}
-            />
-
             {/* Services & Pricing Tiers */}
             <ServicesSection
               currency={currency}
               onSelectService={handleSelectService}
-              onOpenEstimator={scrollToEstimator}
             />
-
-            {/* Cost Estimator */}
-            <EstimateCalculator
-              currency={currency}
-              onApplyEstimateToContact={handleApplyEstimate}
-            />
-
-            {/* Website Speed & Core Web Vitals Benchmark */}
-            <SpeedComparisonAudit />
-
-            {/* About, Skills & Engineering Roadmap */}
-            <AboutSection
-              profile={profile}
-              onOpenContact={() => scrollToContact()}
-            />
-
-            {/* Testimonials */}
-            <TestimonialsSection />
-
-            {/* Engineering Insights */}
-            <BlogSection />
-
-            {/* Frequently Asked Questions */}
-            <FaqSection />
 
             {/* Contact Intake Terminal */}
             <ContactSection

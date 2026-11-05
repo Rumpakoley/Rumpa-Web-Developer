@@ -1,37 +1,36 @@
 import React from 'react';
 import { ServiceTier } from '../types';
 import { SERVICES } from '../data/portfolioData';
-import { Check, Clock, ArrowRight, Sparkles } from 'lucide-react';
+import { Check, Clock, ArrowRight } from 'lucide-react';
 
 interface ServicesSectionProps {
   currency: 'INR' | 'USD';
   onSelectService: (service: ServiceTier) => void;
-  onOpenEstimator: () => void;
+  onOpenEstimator?: () => void;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
   currency,
   onSelectService,
-  onOpenEstimator,
 }) => {
   return (
-    <section id="services" className="py-20 md:py-28 border-t border-amber-500/20 relative bg-[#0c0d10] bg-garage-scanlines">
+    <section id="services" className="py-16 md:py-20 border-t border-amber-500/20 relative bg-[#0c0d10] bg-garage-scanlines">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-2xl mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+        <div className="max-w-2xl mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-2">
             <span>// SERVICES & PRICING</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display text-balance">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight font-display text-balance">
             Transparent pricing. Zero hidden fees. Built right the first time.
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2">
-            Whether you need a laser-focused sales landing page or a full bespoke web application, you get high-craft code, guaranteed sub-second speeds, and direct communication.
+          <p className="text-slate-400 text-xs sm:text-sm mt-1.5">
+            High-craft custom code, guaranteed sub-second speeds, and direct 1-on-1 communication.
           </p>
         </div>
 
-        {/* 3 Service Tiers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* 3 Compact Service Tiers Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {SERVICES.map((service) => {
             const price = currency === 'INR'
               ? `₹${service.startingPriceINR.toLocaleString('en-IN')}`
@@ -40,53 +39,53 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             return (
               <div
                 key={service.id}
-                className={`rounded-2xl p-7 flex flex-col justify-between transition-all relative ${
+                className={`rounded-2xl p-6 flex flex-col justify-between transition-all relative ${
                   service.isPopular
                     ? 'bg-[#14151a] border-2 border-amber-500 shadow-2xl shadow-amber-500/15'
                     : 'bg-[#101116] border border-amber-500/20 hover:border-amber-500/40'
                 }`}
               >
                 {service.isPopular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-[11px] font-mono font-bold rounded-full uppercase tracking-wider shadow-lg shadow-amber-500/20">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-[10px] font-mono font-bold rounded-full uppercase tracking-wider shadow-md shadow-amber-500/20">
                     Most Popular Choice
                   </div>
                 )}
 
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="text-xl font-bold text-white tracking-tight font-display">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <h3 className="text-lg font-bold text-white tracking-tight font-display">
                       {service.name}
                     </h3>
                   </div>
 
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 font-light min-h-[40px]">
+                  <p className="text-slate-300 text-xs leading-relaxed mb-4 font-light min-h-[34px]">
                     {service.tagline}
                   </p>
 
                   {/* Starting Price & Turnaround */}
-                  <div className="pt-4 border-t border-amber-500/15 pb-6">
-                    <div className="text-[11px] font-mono text-slate-400 uppercase">Starting At</div>
-                    <div className="flex items-baseline gap-1 mt-1">
-                      <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono tabular-nums tracking-tight">
+                  <div className="pt-3 border-t border-amber-500/15 pb-4">
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">Starting At</div>
+                    <div className="flex items-baseline gap-1 mt-0.5">
+                      <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono tabular-nums tracking-tight">
                         {price}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">one-time</span>
+                      <span className="text-[11px] text-slate-400 font-mono">one-time</span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs text-amber-300 mt-2 font-mono">
+                    <div className="flex items-center gap-1.5 text-xs text-amber-300 mt-1.5 font-mono">
                       <Clock className="w-3.5 h-3.5 text-amber-400" />
                       <span>{service.turnaroundTime} Delivery</span>
                     </div>
                   </div>
 
                   {/* Deliverables List */}
-                  <div className="space-y-3 pt-6 border-t border-white/5 mb-8">
-                    <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">
+                  <div className="space-y-2 pt-4 border-t border-white/5 mb-6">
+                    <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">
                       Everything Included:
                     </span>
                     {service.deliverables.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                        <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                        <Check className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                         <span className="leading-snug">{item}</span>
                       </div>
                     ))}
@@ -94,16 +93,16 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 </div>
 
                 <div>
-                  <div className="mb-4 text-[11px] text-slate-400 bg-white/[0.02] p-2.5 rounded-lg border border-white/5">
+                  <div className="mb-3 text-[11px] text-slate-400 bg-white/[0.02] p-2 rounded-lg border border-white/5">
                     <span className="text-slate-300 font-medium">Ideal for: </span>
                     {service.idealFor}
                   </div>
 
                   <button
                     onClick={() => onSelectService(service)}
-                    className={`w-full py-3 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
+                    className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                       service.isPopular
-                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-bold shadow-lg shadow-amber-500/25'
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black shadow-lg shadow-amber-500/20'
                         : 'bg-white/5 hover:bg-amber-500/15 text-white border border-white/10 hover:border-amber-500/30'
                     }`}
                   >
@@ -114,30 +113,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </div>
             );
           })}
-        </div>
-
-        {/* Custom Project Estimator Banner */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/40 via-[#14151a] to-[#0c0d10] border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl">
-          <div>
-            <div className="flex items-center gap-2 text-amber-400 text-xs font-mono mb-1">
-              <Sparkles className="w-4 h-4" />
-              <span>Need a custom scope or specific integrations?</span>
-            </div>
-            <h3 className="text-xl font-bold text-white font-display">
-              Calculate your exact project investment in 60 seconds
-            </h3>
-            <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
-              Use the interactive quote builder to customize page counts, payment gateways, CMS options, and timeline requirements.
-            </p>
-          </div>
-
-          <button
-            onClick={onOpenEstimator}
-            className="px-5 py-3 text-xs font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-xl shadow-md shadow-amber-500/20 transition-all whitespace-nowrap shrink-0 flex items-center gap-2"
-          >
-            <span>Open Cost Calculator</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
       </div>
     </section>

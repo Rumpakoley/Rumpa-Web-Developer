@@ -32,12 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { label: '3D Showcase', href: '#showcase', highlight: true },
-    { label: 'Case Studies', href: '#projects' },
-    { label: 'Garage CLI', href: '#terminal' },
-    { label: 'Services', href: '#services' },
-    { label: 'Cost Estimator', href: '#estimator' },
-    { label: 'Speed Audit', href: '#speed-audit' },
-    { label: 'About', href: '#about' },
+    { label: 'Services & Rates', href: '#services' },
     { label: 'Contact', href: '#contact' },
   ];
 
