@@ -330,3 +330,10 @@
   -webkit-text-fill-color: transparent;
   animation: textPhosphorShimmer 7s ease-in-out infinite;
 }
+
+/* Dynamic Scroll-Driven Transitions */
+.hero-scroll-container {
+  will-change: transform, opacity, filter;
+  transform-style: preserve-3d;
+  transition: transform 0.06s ease-out, filter 0.08s ease-out, opacity 0.06s ease-out;
+}

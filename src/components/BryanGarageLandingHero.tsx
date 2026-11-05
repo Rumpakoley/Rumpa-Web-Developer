@@ -122,6 +122,24 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
     };
   }, []);
 
+  // Dynamic Scroll Tracking for Parallax & Optical Depth Transitions
+  const [scrollY, setScrollY] = useState<number>(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // 3D Mouse Tilt over Hero Section
   const handleHeroMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -170,6 +188,17 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
     }
     setTerminalInput('');
   };
+
+  // Dynamic Scroll Metrics for Parallax, Depth Blur, and Reading Scrub
+  const scrollProgress = Math.min(1, Math.max(0, scrollY / 460));
+  const textTranslateY = -scrollY * 0.22;
+  const quoteTranslateY = -scrollY * 0.32;
+  const terminalTranslateY = -scrollY * 0.12;
+
+  // Optical rack-focus blur and opacity fade as user scrolls
+  const textOpacity = Math.max(0, 1 - Math.pow(scrollProgress, 1.3));
+  const textBlur = Math.min(6, scrollProgress * 5.5);
+  const textScale = Math.max(0.95, 1 - scrollProgress * 0.04);
 
   return (
     <section 
@@ -223,8 +252,15 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
 
         {/* Main Content Row: Left Hero Statement + Right Telemetry Column (Exact match to reference site) */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 animate-hero-fade">
-          {/* Left Column: Hero Description (Left aligned with cascading transitions) */}
-          <div className="max-w-3xl lg:max-w-4xl text-left group">
+          {/* Left Column: Hero Description (Left aligned with cascading and scroll transitions) */}
+          <div 
+            className="max-w-3xl lg:max-w-4xl text-left group hero-scroll-container"
+            style={{
+              transform: `translate3d(0, ${textTranslateY}px, 0) scale(${textScale})`,
+              opacity: textOpacity,
+              filter: `blur(${textBlur}px)`,
+            }}
+          >
             <h1 className="text-2xl sm:text-4xl md:text-[40px] lg:text-[44px] leading-[1.3] font-normal tracking-tight text-slate-400 group-hover:text-slate-300 transition-colors duration-500 font-sans text-left">
               {/* Clause 1: AI GARAGE by Rumpa Koley */}
               <span className="animate-clause delay-clause-1 inline">
@@ -297,10 +333,26 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
               </span>
             </h1>
 
-            {/* Subtext Paragraph with Staggered Slide & Blur Fade Transition */}
-            <p className="mt-6 text-xs sm:text-sm text-slate-500 group-hover:text-slate-400 transition-colors duration-500 font-light max-w-2xl leading-relaxed text-left animate-clause delay-clause-sub block">
+            {/* Subtext Paragraph with Multi-Plane Depth Parallax */}
+            <p 
+              className="mt-6 text-xs sm:text-sm text-slate-500 group-hover:text-slate-400 transition-colors duration-500 font-light max-w-2xl leading-relaxed text-left animate-clause delay-clause-sub block"
+              style={{
+                transform: `translate3d(0, ${quoteTranslateY * 0.35}px, 0)`,
+              }}
+            >
               I believe software is the most malleable medium we have, and the modern web is the most interesting thing to happen to it.
             </p>
+
+            {/* Dynamic Scroll Scrub Progress Bar */}
+            <div className="mt-5 h-[2px] w-full max-w-md bg-white/5 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-amber-500 via-orange-400 to-amber-300 transition-all duration-75 ease-out shadow-[0_0_8px_#f59e0b]"
+                style={{
+                  width: `${Math.min(100, scrollProgress * 115)}%`,
+                  opacity: scrollProgress > 0.02 ? 1 : 0,
+                }}
+              />
+            </div>
           </div>
 
           {/* Right Column: Stacked Telemetry & Navigation Actions (Right aligned) */}
@@ -344,7 +396,7 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
         <div 
           className="relative z-20 max-w-xl w-full mx-auto mt-8 sm:mt-12 transition-transform duration-200 ease-out animate-hero-fade-delay float-idle"
           style={{
-            transform: `perspective(1000px) rotateX(${windowTilt.x}deg) rotateY(${windowTilt.y}deg)`,
+            transform: `perspective(1000px) rotateX(${windowTilt.x}deg) rotateY(${windowTilt.y}deg) translate3d(0, ${terminalTranslateY}px, 0)`,
           }}
         >
           <div className="rounded-2xl border border-amber-500/35 bg-[#14151a]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 hover:border-amber-400/60 hover:shadow-[0_25px_60px_rgba(245,158,11,0.18)]">
@@ -495,6 +547,23 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
           </div>
         </div>
       )}
+
+      {/* ======================================================== */}
+      {/* RETRO TERMINAL SCROLL CUE                                */}
+      {/* ======================================================== */}
+      <div 
+        className="relative z-20 flex items-center justify-center pt-6 pb-2 text-[10px] font-mono tracking-widest text-slate-500 transition-all duration-200"
+        style={{
+          opacity: Math.max(0, 1 - scrollY / 70),
+          transform: `translateY(${Math.min(20, scrollY * 0.35)}px)`,
+        }}
+      >
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/20 bg-[#121318]/80 backdrop-blur-md shadow-lg">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+          <span className="text-slate-400 uppercase tracking-widest">SCROLL TO EXPLORE</span>
+          <span className="text-amber-400 font-bold animate-bounce text-xs">↓</span>
+        </div>
+      </div>
 
       {/* ======================================================== */}
       {/* RIGHT EDGE AWWWARDS HONORS RIBBON (Exact to screenshot)  */}
