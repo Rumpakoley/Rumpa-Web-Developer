@@ -10,26 +10,26 @@ interface AboutSectionProps {
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenContact }) => {
   return (
-    <section id="about" className="py-20 md:py-28 border-t border-white/10 relative">
+    <section id="about" className="py-20 md:py-28 border-t border-amber-500/20 relative bg-[#0c0d10] bg-garage-scanlines">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* About Story & Philosophy */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
           <div className="lg:col-span-5">
-            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">
-              Background & Philosophy
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+              <span>// BACKGROUND & PHILOSOPHY</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display text-balance">
               Developer in code. Partner in business growth.
             </h2>
 
             {/* Clean Monogram / Avatar Presentation */}
-            <div className="mt-8 p-6 rounded-2xl bg-[#0D101A] border border-white/10 flex items-center gap-5">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-display font-extrabold text-2xl shadow-lg shadow-indigo-600/30">
+            <div className="mt-8 p-6 rounded-2xl bg-[#14151a] border border-amber-500/30 flex items-center gap-5 shadow-lg">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-black font-display font-black text-2xl shadow-lg shadow-amber-500/30">
                 {profile.name.split(' ').map(n => n[0]).join('')}
               </div>
               <div>
                 <div className="text-lg font-bold text-white font-display">{profile.name}</div>
-                <div className="text-xs text-indigo-400 font-mono">{profile.role}</div>
+                <div className="text-xs text-amber-400 font-mono">{profile.role}</div>
                 <div className="text-xs text-slate-400 mt-1">{profile.location}</div>
               </div>
             </div>
@@ -40,11 +40,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
                 <span>Years of Active Engineering: {profile.yearsExperience}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                 <span>Completed Business Projects: {profile.projectsCompleted}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                 <span>Client Satisfaction Rating: {profile.satisfactionRate}</span>
               </div>
             </div>
@@ -61,24 +61,24 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
               I focus relentlessly on three fundamentals:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                <div className="font-semibold text-white text-xs mb-1 font-mono uppercase tracking-wide">
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-amber-500/20">
+                <div className="font-semibold text-amber-400 text-xs mb-1 font-mono uppercase tracking-wide">
                   1. Speed First
                 </div>
                 <p className="text-xs text-slate-400">
                   Sub-second loading times to ensure zero drop-off on mobile devices.
                 </p>
               </div>
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                <div className="font-semibold text-white text-xs mb-1 font-mono uppercase tracking-wide">
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-amber-500/20">
+                <div className="font-semibold text-amber-400 text-xs mb-1 font-mono uppercase tracking-wide">
                   2. Conversion Design
                 </div>
                 <p className="text-xs text-slate-400">
                   Clear copy hierarchy and frictionless CTAs that prompt users to act.
                 </p>
               </div>
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                <div className="font-semibold text-white text-xs mb-1 font-mono uppercase tracking-wide">
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-amber-500/20">
+                <div className="font-semibold text-amber-400 text-xs mb-1 font-mono uppercase tracking-wide">
                   3. Clean Architecture
                 </div>
                 <p className="text-xs text-slate-400">
@@ -92,8 +92,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
         {/* Technical Skills Grid */}
         <div className="mb-24">
           <div className="max-w-2xl mb-10">
-            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">
-              Technical Stack & Competencies
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+              <span>// TECHNICAL STACK & COMPETENCIES</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
               Built on battle-tested modern web standards.
@@ -104,7 +104,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
             {SKILL_CATEGORIES.map((category) => (
               <div
                 key={category.title}
-                className="bg-[#0C0E14] border border-white/10 rounded-2xl p-6"
+                className="bg-[#101116] border border-amber-500/20 rounded-2xl p-6 hover:border-amber-500/40 transition-colors"
               >
                 <h4 className="text-base font-bold text-white font-display mb-4 pb-3 border-b border-white/5">
                   {category.title}
@@ -112,7 +112,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
                 <div className="space-y-3">
                   {category.skills.map((skill) => (
                     <div key={skill.name} className="flex items-center justify-between text-xs">
-                      <span className={`font-medium ${skill.highlight ? 'text-white' : 'text-slate-300'}`}>
+                      <span className={`font-medium ${skill.highlight ? 'text-amber-300 font-semibold' : 'text-slate-300'}`}>
                         {skill.name}
                       </span>
                       <span className="font-mono text-slate-500 text-[11px]">{skill.level}</span>
@@ -124,11 +124,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
           </div>
         </div>
 
-        {/* 4-Step Engineering Roadmap complying with Section 1.B */}
+        {/* 4-Step Engineering Roadmap */}
         <div id="process">
           <div className="max-w-2xl mb-12">
-            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">
-              How We Work Together
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+              <span>// HOW WE WORK TOGETHER</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display text-balance">
               The 4-stage roadmap from idea to production launch.
@@ -142,10 +142,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
             {DEVELOPMENT_PROCESS.map((p) => (
               <div
                 key={p.step}
-                className="bg-[#0C0E14] border border-white/10 rounded-2xl p-6 flex flex-col justify-between"
+                className="bg-[#101116] border border-amber-500/20 rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition-colors"
               >
                 <div>
-                  <div className="text-3xl font-extrabold text-indigo-400 font-mono mb-4">
+                  <div className="text-3xl font-extrabold text-amber-400 font-mono mb-4">
                     {p.step}.
                   </div>
                   <h4 className="text-lg font-bold text-white font-display mb-2">
@@ -160,7 +160,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onOpenConta
                   <div className="text-slate-400">
                     Duration: <span className="text-slate-200">{p.duration}</span>
                   </div>
-                  <div className="text-indigo-400">
+                  <div className="text-amber-400">
                     Key: <span className="text-slate-300">{p.deliverable}</span>
                   </div>
                 </div>

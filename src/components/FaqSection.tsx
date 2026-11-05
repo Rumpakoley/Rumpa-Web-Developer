@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FAQS } from '../data/portfolioData';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -10,11 +10,12 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 md:py-24 border-t border-white/10 relative">
+    <section className="py-20 md:py-24 border-t border-amber-500/20 relative bg-[#0c0d10] bg-garage-scanlines">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-14">
-          <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">
-            Frequently Asked Questions
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>// FREQUENTLY ASKED QUESTIONS</span>
           </div>
           <h2 className="text-3xl font-extrabold text-white tracking-tight font-display">
             Clear answers before we start.
@@ -31,7 +32,7 @@ export const FaqSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="bg-[#0C0E14] border border-white/10 rounded-xl overflow-hidden transition-colors"
+                className="bg-[#101116] border border-amber-500/20 rounded-xl overflow-hidden transition-colors hover:border-amber-500/40"
               >
                 <button
                   onClick={() => toggle(idx)}
@@ -42,7 +43,7 @@ export const FaqSection: React.FC = () => {
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-indigo-400 shrink-0 transition-transform duration-200 ${
+                    className={`w-4 h-4 text-amber-400 shrink-0 transition-transform duration-200 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />

@@ -15,12 +15,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onOpenEstimator,
 }) => {
   return (
-    <section id="services" className="py-20 md:py-28 border-t border-white/10 relative">
+    <section id="services" className="py-20 md:py-28 border-t border-amber-500/20 relative bg-[#0c0d10] bg-garage-scanlines">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mb-14">
-          <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">
-            Services & Pricing
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+            <span>// SERVICES & PRICING</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display text-balance">
             Transparent pricing. Zero hidden fees. Built right the first time.
@@ -42,12 +42,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 key={service.id}
                 className={`rounded-2xl p-7 flex flex-col justify-between transition-all relative ${
                   service.isPopular
-                    ? 'bg-[#10131E] border-2 border-indigo-500 shadow-2xl shadow-indigo-500/10'
-                    : 'bg-[#0C0E14] border border-white/10 hover:border-white/20'
+                    ? 'bg-[#14151a] border-2 border-amber-500 shadow-2xl shadow-amber-500/15'
+                    : 'bg-[#101116] border border-amber-500/20 hover:border-amber-500/40'
                 }`}
               >
                 {service.isPopular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-[11px] font-mono font-semibold rounded-full uppercase tracking-wider shadow">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-[11px] font-mono font-bold rounded-full uppercase tracking-wider shadow-lg shadow-amber-500/20">
                     Most Popular Choice
                   </div>
                 )}
@@ -64,7 +64,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   </p>
 
                   {/* Starting Price & Turnaround */}
-                  <div className="pt-4 border-t border-white/10 pb-6">
+                  <div className="pt-4 border-t border-amber-500/15 pb-6">
                     <div className="text-[11px] font-mono text-slate-400 uppercase">Starting At</div>
                     <div className="flex items-baseline gap-1 mt-1">
                       <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono tabular-nums tracking-tight">
@@ -73,8 +73,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                       <span className="text-xs text-slate-400 font-mono">one-time</span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs text-slate-300 mt-2 font-mono">
-                      <Clock className="w-3.5 h-3.5 text-indigo-400" />
+                    <div className="flex items-center gap-1.5 text-xs text-amber-300 mt-2 font-mono">
+                      <Clock className="w-3.5 h-3.5 text-amber-400" />
                       <span>{service.turnaroundTime} Delivery</span>
                     </div>
                   </div>
@@ -86,7 +86,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     </span>
                     {service.deliverables.map((item, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                        <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                         <span className="leading-snug">{item}</span>
                       </div>
                     ))}
@@ -103,12 +103,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     onClick={() => onSelectService(service)}
                     className={`w-full py-3 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
                       service.isPopular
-                        ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25'
-                        : 'bg-white/10 hover:bg-white/15 text-white'
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-bold shadow-lg shadow-amber-500/25'
+                        : 'bg-white/5 hover:bg-amber-500/15 text-white border border-white/10 hover:border-amber-500/30'
                     }`}
                   >
                     <span>Inquire About This Package</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
                   </button>
                 </div>
               </div>
@@ -117,9 +117,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         </div>
 
         {/* Custom Project Estimator Banner */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-indigo-950/40 via-purple-950/20 to-slate-900 border border-indigo-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/40 via-[#14151a] to-[#0c0d10] border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl">
           <div>
-            <div className="flex items-center gap-2 text-indigo-400 text-xs font-mono mb-1">
+            <div className="flex items-center gap-2 text-amber-400 text-xs font-mono mb-1">
               <Sparkles className="w-4 h-4" />
               <span>Need a custom scope or specific integrations?</span>
             </div>
@@ -133,7 +133,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
           <button
             onClick={onOpenEstimator}
-            className="px-5 py-3 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-md transition-all whitespace-nowrap shrink-0 flex items-center gap-2"
+            className="px-5 py-3 text-xs font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-xl shadow-md shadow-amber-500/20 transition-all whitespace-nowrap shrink-0 flex items-center gap-2"
           >
             <span>Open Cost Calculator</span>
             <ArrowRight className="w-4 h-4" />

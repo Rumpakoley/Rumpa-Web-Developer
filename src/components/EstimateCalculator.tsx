@@ -67,7 +67,6 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
 
   if (timelineSpeed === 'rush') {
     calculatedINR *= 1.2;
-    calculatedUSD *= 1.2;
   }
 
   const finalINR = Math.round(calculatedINR / 500) * 500;
@@ -88,11 +87,12 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
   };
 
   return (
-    <section id="estimator" className="py-20 md:py-28 border-t border-white/10 relative">
+    <section id="estimator" className="py-20 md:py-28 border-t border-amber-500/20 relative bg-[#0c0d10] bg-garage-scanlines">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-12">
-          <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">
-            Interactive Cost Estimator
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
+            <Calculator className="w-3.5 h-3.5" />
+            <span>// INTERACTIVE COST ESTIMATOR</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display text-balance">
             Configure your project and get a realistic quote in real time.
@@ -104,7 +104,7 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Controls Panel */}
-          <div className="lg:col-span-8 space-y-8 bg-[#0C0E14] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl">
+          <div className="lg:col-span-8 space-y-8 bg-[#14151a] border border-amber-500/25 rounded-2xl p-6 sm:p-8 shadow-xl">
             {/* 1. Project Type */}
             <div>
               <label className="text-xs font-mono text-slate-300 uppercase tracking-wider block mb-3">
@@ -117,12 +117,12 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                     onClick={() => setProjectType(t.id)}
                     className={`p-4 rounded-xl text-left border transition-all ${
                       projectType === t.id
-                        ? 'bg-indigo-950/40 border-indigo-500 text-white shadow-sm'
-                        : 'bg-white/[0.02] border-white/10 text-slate-300 hover:border-white/20'
+                        ? 'bg-amber-950/50 border-amber-500 text-white shadow-md shadow-amber-500/10'
+                        : 'bg-white/[0.02] border-white/10 text-slate-300 hover:border-amber-500/30'
                     }`}
                   >
                     <div className="font-semibold text-sm">{t.label}</div>
-                    <div className="text-xs text-slate-400 mt-1 font-mono">
+                    <div className="text-xs text-amber-300/80 mt-1 font-mono">
                       From {currency === 'INR' ? `₹${t.baseINR.toLocaleString('en-IN')}` : `$${t.baseUSD}`} · {t.time}
                     </div>
                   </button>
@@ -142,8 +142,8 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                     onClick={() => setPageCount(p.id)}
                     className={`p-3 rounded-lg text-center text-xs font-medium border transition-colors ${
                       pageCount === p.id
-                        ? 'bg-indigo-600 border-indigo-500 text-white font-semibold'
-                        : 'bg-white/[0.02] border-white/10 text-slate-300 hover:border-white/20'
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 border-amber-400 text-black font-bold shadow-md shadow-amber-500/20'
+                        : 'bg-white/[0.02] border-white/10 text-slate-300 hover:border-amber-500/30'
                     }`}
                   >
                     {p.label}
@@ -162,8 +162,8 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                   onClick={() => setDesignState('needsDesign')}
                   className={`p-3.5 rounded-xl text-left border transition-colors ${
                     designState === 'needsDesign'
-                      ? 'bg-indigo-950/40 border-indigo-500 text-white'
-                      : 'bg-white/[0.02] border-white/10 text-slate-300'
+                      ? 'bg-amber-950/50 border-amber-500 text-white shadow-sm'
+                      : 'bg-white/[0.02] border-white/10 text-slate-300 hover:border-amber-500/30'
                   }`}
                 >
                   <div className="text-sm font-semibold">I need custom design & branding</div>
@@ -173,13 +173,13 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                   onClick={() => setDesignState('hasDesign')}
                   className={`p-3.5 rounded-xl text-left border transition-colors ${
                     designState === 'hasDesign'
-                      ? 'bg-indigo-950/40 border-indigo-500 text-white'
-                      : 'bg-white/[0.02] border-white/10 text-slate-300'
+                      ? 'bg-amber-950/50 border-amber-500 text-white shadow-sm'
+                      : 'bg-white/[0.02] border-white/10 text-slate-300 hover:border-amber-500/30'
                   }`}
                 >
                   <div className="text-sm font-semibold flex items-center justify-between">
                     <span>I have Figma/designs ready</span>
-                    <span className="text-[11px] font-mono text-emerald-400">-15% OFF</span>
+                    <span className="text-[11px] font-mono text-amber-400 font-bold">-15% OFF</span>
                   </div>
                   <div className="text-xs text-slate-400 mt-0.5">Design-to-code implementation directly from assets</div>
                 </button>
@@ -204,21 +204,21 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                       onClick={() => toggleAddon(addon.id)}
                       className={`p-3 rounded-lg border text-left flex items-center justify-between transition-colors ${
                         isChecked
-                          ? 'bg-white/10 border-indigo-400/60 text-white'
-                          : 'bg-white/[0.02] border-white/5 text-slate-400 hover:text-slate-200'
+                          ? 'bg-amber-500/10 border-amber-500/60 text-white'
+                          : 'bg-white/[0.02] border-white/5 text-slate-400 hover:text-slate-200 hover:border-amber-500/20'
                       }`}
                     >
                       <div className="flex items-center gap-2 text-xs">
                         <div
                           className={`w-4 h-4 rounded flex items-center justify-center border ${
-                            isChecked ? 'bg-indigo-600 border-indigo-500 text-white' : 'border-white/20'
+                            isChecked ? 'bg-amber-500 border-amber-400 text-black font-bold' : 'border-white/20'
                           }`}
                         >
-                          {isChecked && <Check className="w-3 h-3" />}
+                          {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                         </div>
                         <span>{addon.label}</span>
                       </div>
-                      <span className="text-[11px] font-mono text-indigo-400 ml-2 shrink-0">{addonPrice}</span>
+                      <span className="text-[11px] font-mono text-amber-400 ml-2 shrink-0">{addonPrice}</span>
                     </button>
                   );
                 })}
@@ -235,7 +235,7 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                   onClick={() => setTimelineSpeed('standard')}
                   className={`p-3 rounded-lg text-center text-xs font-medium border transition-colors ${
                     timelineSpeed === 'standard'
-                      ? 'bg-indigo-950/40 border-indigo-500 text-white'
+                      ? 'bg-amber-950/40 border-amber-500 text-white'
                       : 'bg-white/[0.02] border-white/10 text-slate-400'
                   }`}
                 >
@@ -245,7 +245,7 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
                   onClick={() => setTimelineSpeed('rush')}
                   className={`p-3 rounded-lg text-center text-xs font-medium border transition-colors ${
                     timelineSpeed === 'rush'
-                      ? 'bg-amber-950/40 border-amber-500 text-amber-200'
+                      ? 'bg-amber-950/60 border-amber-500 text-amber-300 font-bold shadow-md shadow-amber-500/20'
                       : 'bg-white/[0.02] border-white/10 text-slate-400'
                   }`}
                 >
@@ -256,19 +256,19 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
           </div>
 
           {/* Sticky Estimate Summary Card */}
-          <div className="lg:col-span-4 bg-[#111420] border border-indigo-500/30 rounded-2xl p-6 sm:p-7 shadow-2xl sticky top-24">
-            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <div className="lg:col-span-4 bg-[#14151a] border border-amber-500/35 rounded-2xl p-6 sm:p-7 shadow-2xl sticky top-24">
+            <div className="text-xs font-mono text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <Calculator className="w-3.5 h-3.5" />
               <span>Instant Estimate Breakdown</span>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-white/10">
+            <div className="mt-4 pt-4 border-t border-amber-500/15">
               <div className="text-xs text-slate-400">Estimated Investment</div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tabular-nums tracking-tight mt-1">
                 {displayPrice}
               </div>
               <div className="text-xs text-slate-400 font-mono mt-1">
-                Est. Delivery: <span className="text-slate-200 font-semibold">{estimatedDelivery}</span>
+                Est. Delivery: <span className="text-amber-300 font-semibold">{estimatedDelivery}</span>
               </div>
             </div>
 
@@ -289,14 +289,14 @@ export const EstimateCalculator: React.FC<EstimateCalculatorProps> = ({
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Add-ons:</span>
-                <span className="font-mono text-indigo-400 font-semibold">{selectedAddons.length} selected</span>
+                <span className="font-mono text-amber-400 font-semibold">{selectedAddons.length} selected</span>
               </div>
             </div>
 
             <div className="space-y-3">
               <button
                 onClick={handleApply}
-                className="w-full py-3.5 px-4 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 shadow-lg shadow-amber-500/25 transition-all flex items-center justify-center gap-2"
               >
                 <span>Apply & Send Inquiry</span>
                 <Send className="w-3.5 h-3.5" />

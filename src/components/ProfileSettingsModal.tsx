@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DeveloperProfile } from '../types';
-import { X, Save, RotateCcw, Check } from 'lucide-react';
+import { X, Save, RotateCcw, Check, Sliders } from 'lucide-react';
 import { INITIAL_PROFILE } from '../data/portfolioData';
 
 interface ProfileSettingsModalProps {
@@ -38,18 +38,19 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-[#0C0E16] border border-white/15 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
+      <div className="bg-[#14151a] border border-amber-500/35 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-lg bg-white/5 hover:bg-amber-500/20 text-slate-400 hover:text-white transition-colors"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="mb-6">
-          <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-1">
-            Site Personalization & Contact Info
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-2">
+            <Sliders className="w-3.5 h-3.5" />
+            <span>// SYSTEM CONFIGURATION</span>
           </div>
           <h2 className="text-xl font-bold text-white font-display">Customize Your Developer Profile</h2>
           <p className="text-xs text-slate-400 mt-1">
@@ -65,7 +66,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -74,7 +75,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 type="text"
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
@@ -86,7 +87,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -95,7 +96,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 type="text"
                 value={formData.whatsapp}
                 onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
@@ -108,14 +109,14 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 placeholder="Location"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
               <input
                 type="text"
                 value={formData.availability}
                 onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
                 placeholder="Availability status"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
@@ -126,7 +127,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
               type="text"
               value={formData.tagline}
               onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
             />
           </div>
 
@@ -136,7 +137,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
               rows={3}
               value={formData.bio}
               onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500 resize-none"
+              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500 resize-none"
             />
           </div>
 
@@ -147,7 +148,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 type="url"
                 value={formData.github}
                 onChange={(e) => setFormData({ ...formData, github: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -156,7 +157,7 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
                 type="url"
                 value={formData.linkedin}
                 onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
@@ -173,11 +174,11 @@ export const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({
 
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg flex items-center gap-1.5 shadow"
+              className="px-5 py-2 text-xs font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-lg flex items-center gap-1.5 shadow-md shadow-amber-500/20"
             >
               {savedSuccess ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-300" />
+                  <Check className="w-4 h-4 text-black stroke-[3]" />
                   <span>Saved!</span>
                 </>
               ) : (
