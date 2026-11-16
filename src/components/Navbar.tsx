@@ -32,7 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { label: '3D Showcase', href: '#showcase', highlight: true },
-    { label: 'Services & Rates', href: '#services' },
     { label: 'Contact', href: '#contact' },
   ];
 

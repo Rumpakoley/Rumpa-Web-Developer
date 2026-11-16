@@ -54,9 +54,6 @@ export const Footer: React.FC<FooterProps> = ({ profile, onOpenSettings }) => {
               <a href="#showcase" onClick={() => sound.playClick()} className="hover:text-amber-400 transition-colors block py-1">
                 3D Timeline Showcase
               </a>
-              <a href="#services" onClick={() => sound.playClick()} className="hover:text-amber-400 transition-colors block py-1">
-                Services & Pricing
-              </a>
               <a href="#contact" onClick={() => sound.playClick()} className="hover:text-amber-400 transition-colors block py-1">
                 Direct Contact
               </a>

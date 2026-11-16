@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Terminal, Cpu, Layers, DollarSign, Activity, Mail, Volume2, Monitor, ArrowRight, X } from 'lucide-react';
+import { Search, Terminal, Cpu, Layers, Activity, Mail, Volume2, Monitor, ArrowRight, X } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 interface CommandPaletteModalProps {
@@ -42,7 +42,6 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
 
   const commands = [
     { id: 'showcase', label: '3D Timeline Showcase', category: 'Navigation', icon: Cpu, action: () => onNavigate('showcase') },
-    { id: 'services', label: 'Services & Fixed Pricing', category: 'Commercial', icon: DollarSign, action: () => onNavigate('services') },
     { id: 'contact', label: 'Say Hi / Project Transmission', category: 'Direct', icon: Mail, action: () => onNavigate('contact') },
     { id: 'sound', label: `Toggle Audio SFX (${soundEnabled ? 'ON' : 'OFF'})`, category: 'Preferences', icon: Volume2, action: () => onToggleSound() },
     { id: 'crt', label: `Toggle Retro CRT Scanlines (${crtEnabled ? 'ON' : 'OFF'})`, category: 'Preferences', icon: Monitor, action: () => onToggleCRT() },

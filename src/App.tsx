@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { INITIAL_PROFILE } from './data/portfolioData';
-import { DeveloperProfile, Project, ServiceTier } from './types';
+import { DeveloperProfile, Project } from './types';
 import { BryanGarageLandingHero } from './components/BryanGarageLandingHero';
 import { BryanGarageShowcase } from './components/BryanGarageShowcase';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
 import { Navbar } from './components/Navbar';
 import { TimelineShowcase } from './components/TimelineShowcase';
-import { ServicesSection } from './components/ServicesSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
@@ -134,14 +133,6 @@ export default function App() {
     scrollToSection('estimator');
   };
 
-  const handleSelectService = (service: ServiceTier) => {
-    const priceStr = currency === 'INR'
-      ? `₹${service.startingPriceINR.toLocaleString('en-IN')}`
-      : `$${service.startingPriceUSD.toLocaleString('en-US')}`;
-    const scopeNote = `Selected Package: ${service.name} (${service.tagline})\nExpected Turnaround: ${service.turnaroundTime}\nStarting Price: ${priceStr}`;
-    scrollToContact(scopeNote, priceStr);
-  };
-
   const handleApplyEstimate = (summary: string, budget: string) => {
     scrollToContact(summary, budget);
   };
@@ -201,12 +192,6 @@ export default function App() {
             <TimelineShowcase
               onSelectProject={(proj) => setSelectedProject(proj)}
               onOpenContact={(note) => scrollToContact(note)}
-            />
-
-            {/* Services & Pricing Tiers */}
-            <ServicesSection
-              currency={currency}
-              onSelectService={handleSelectService}
             />
 
             {/* Contact Intake Terminal */}
