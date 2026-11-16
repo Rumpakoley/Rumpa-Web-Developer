@@ -558,24 +558,6 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
           <span className="text-amber-400 font-bold animate-bounce text-xs">↓</span>
         </div>
       </div>
-
-      {/* ======================================================== */}
-      {/* RIGHT EDGE AWWWARDS HONORS RIBBON (Exact to screenshot)  */}
-      {/* ======================================================== */}
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden md:block">
-        <a
-          href="https://bryangarage.dev/showcase"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-white text-black font-mono font-bold py-3 px-1.5 flex flex-col items-center justify-center rounded-l-md shadow-2xl hover:bg-amber-400 transition-colors cursor-pointer group hover:-translate-x-1 duration-200"
-          title="Inspired by Bryan Garage Awwwards Winner"
-        >
-          <span className="text-xs font-black mb-2 tracking-tighter">W.</span>
-          <span className="text-[10px] tracking-widest uppercase [writing-mode:vertical-rl] rotate-180 font-bold">
-            Honors
-          </span>
-        </a>
-      </div>
     </section>
   );
 };
