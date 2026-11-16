@@ -10,7 +10,7 @@ export const INITIAL_PROFILE: DeveloperProfile = {
   location: "Kolkata, India · Available Worldwide",
   availability: "Available for Q2/Q3 Projects",
   github: "https://github.com/rumpakoley",
-  linkedin: "https://linkedin.com/in/rumpakoley",
+  linkedin: "https://www.linkedin.com/in/rumpa-koley-22820032b",
   yearsExperience: "4+",
   projectsCompleted: "32+",
   satisfactionRate: "100%",

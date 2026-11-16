@@ -32,7 +32,11 @@ export default function App() {
     const saved = localStorage.getItem('developer_profile');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (!parsed.linkedin || parsed.linkedin.includes('linkedin.com/in/rumpakoley')) {
+          parsed.linkedin = INITIAL_PROFILE.linkedin;
+        }
+        return parsed;
       } catch (e) {
         console.error('Failed to parse saved profile', e);
       }

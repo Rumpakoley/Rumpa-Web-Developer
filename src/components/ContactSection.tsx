@@ -3,6 +3,7 @@ import { DeveloperProfile } from '../types';
 import {
   Mail,
   MessageCircle,
+  Linkedin,
   Send,
   CheckCircle2,
   Copy,
@@ -177,6 +178,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     </div>
                   </div>
                   <ArrowUpRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+
+                {/* LinkedIn Profile Item */}
+                <a
+                  href={profile.linkedin.startsWith('http') ? profile.linkedin : `https://${profile.linkedin}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => sound.playClick()}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-amber-950/30 hover:bg-amber-950/50 border border-amber-500/20 hover:border-amber-500/40 transition-all group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-amber-950 flex items-center justify-center text-amber-400">
+                      <Linkedin className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono text-amber-400 uppercase">LinkedIn Profile</div>
+                      <div className="font-mono text-white text-xs truncate max-w-[210px] sm:max-w-xs">
+                        linkedin.com/in/rumpa-koley-22820032b
+                      </div>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
 
                 {/* Location Item */}
