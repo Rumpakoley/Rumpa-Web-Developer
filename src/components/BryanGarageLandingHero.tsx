@@ -261,9 +261,9 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
               filter: `blur(${textBlur}px)`,
             }}
           >
-            <h1 className="text-2xl sm:text-4xl md:text-[40px] lg:text-[44px] leading-[1.3] font-normal tracking-tight text-slate-400 group-hover:text-slate-300 transition-colors duration-500 font-sans text-left">
-              {/* Clause 1: AI GARAGE by Rumpa Koley */}
-              <span className="animate-clause delay-clause-1 inline">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] leading-[1.38] font-normal tracking-tight text-slate-400 group-hover:text-slate-300 transition-colors duration-500 font-sans text-left">
+              {/* Clause 1: AI GARAGE by Rumpa Koley & Clause 2: Location, Craft & College */}
+              <span className="block animate-clause delay-clause-1">
                 <span className="font-mono font-black text-white text-3xl sm:text-5xl tracking-widest inline-block mr-2 uppercase hero-shimmer-title">
                   AI
                 </span>{' '}
@@ -283,53 +283,47 @@ export const BryanGarageLandingHero: React.FC<BryanGarageLandingHeroProps> = ({
                 >
                   {profile.name}
                 </button>
-                <span className="text-slate-400">.</span>
-              </span>{' '}
+                <span className="text-slate-400">.</span>{' '}
+                <span className="animate-clause delay-clause-2">
+                  Kolkata-based developer building fast, polished web experiences for founders, artists, and storytellers. B.Tech CSE student (Class of 2028) with live work in production:
+                </span>
+              </span>
 
-              {/* Clause 2: Location & Craft */}
-              <span className="animate-clause delay-clause-2 inline">
-                Born in Kolkata, building fast, award-caliber web experiences for founders worldwide.
-              </span>{' '}
+              {/* Clause 3 & 4: Live Production Works (themorphiq.com & pichhutaaney.com) */}
+              <span className="block mt-4 sm:mt-5 space-y-2">
+                <span className="block animate-clause delay-clause-3">
+                  <a
+                    href="https://www.themorphiq.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => sound.playClick(850)}
+                    onMouseEnter={() => sound.playKey()}
+                    className="hero-highlight-link text-white font-semibold inline-block text-left"
+                    title="Visit themorphiq.com (Paintings Showcase)"
+                  >
+                    themorphiq.com
+                  </a>
+                  <span className="text-slate-400">: a gallery-style site where a client showcases her paintings.</span>
+                </span>
+                <span className="block animate-clause delay-clause-4">
+                  <a
+                    href="https://www.pichhutaaney.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => sound.playClick(850)}
+                    onMouseEnter={() => sound.playKey()}
+                    className="hero-highlight-link text-white font-semibold inline-block text-left"
+                    title="Visit pichhutaaney.com (Culinary Table & Supper Club)"
+                  >
+                    pichhutaaney.com
+                  </a>
+                  <span className="text-slate-400">: the home of an intuitive Indian dining table and communal supper club, a living archive of kitchen memories rooted in West Bengal.</span>
+                </span>
+              </span>
 
-              {/* Clause 3: Commercial Track Record - Lumina Atelier */}
-              <span className="animate-clause delay-clause-3 inline">
-                Four years in: architecting headless commerce at{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    sound.playClick(850);
-                    onOpenShowcase();
-                  }}
-                  onMouseEnter={() => sound.playKey()}
-                  className="hero-highlight-link text-white font-semibold inline-block text-left"
-                  title="View Lumina Atelier in 3D Timeline"
-                >
-                  Lumina Atelier
-                </button>
-                ,
-              </span>{' '}
-
-              {/* Clause 4: Real-time SaaS telemetry - Pulse Systems */}
-              <span className="animate-clause delay-clause-4 inline">
-                real-time SaaS telemetry at{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    sound.playClick(850);
-                    onOpenShowcase();
-                  }}
-                  onMouseEnter={() => sound.playKey()}
-                  className="hero-highlight-link text-white font-semibold inline-block text-left"
-                  title="View Pulse Systems in 3D Timeline"
-                >
-                  Pulse Systems
-                </button>
-                , and high-performance booking engines.
-              </span>{' '}
-
-              {/* Clause 5: Present Focus */}
-              <span className="animate-clause delay-clause-5 inline">
-                Now building generative UI canvas tools and high-speed web engines.
+              {/* Clause 5: Tech Focus */}
+              <span className="block mt-4 sm:mt-5 animate-clause delay-clause-5">
+                Focused on React, performance-first front-end engineering, and generative UI tools.
               </span>
             </h1>
 
