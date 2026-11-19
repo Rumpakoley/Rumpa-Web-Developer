@@ -3,9 +3,7 @@ import { Project, TimelineTrack } from '../types';
 import { PROJECTS } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { 
-  Sparkles, 
   Terminal, 
-  Layers, 
   Cpu, 
   Calendar, 
   ArrowUpRight, 
@@ -28,7 +26,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
   const [activeHoverId, setActiveHoverId] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const years = ['all', '2026', '2025', '2024', '2023', '2022'];
+  const years = ['all', '2026'];
 
   const filteredProjects = PROJECTS.filter((p) => {
     const matchTrack = selectedTrack === 'all' || p.track === selectedTrack;
@@ -42,7 +40,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
   const scrollTimeline = (direction: 'left' | 'right') => {
     sound.playClick(750);
     if (scrollContainerRef.current) {
-      const scrollAmount = 480;
+      const scrollAmount = 400;
       scrollContainerRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
@@ -57,8 +55,8 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
   };
 
@@ -90,13 +88,13 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-950/60 border border-amber-500/40 text-amber-400 mb-3">
               <Terminal className="w-3.5 h-3.5" />
-              <span>rumpa@garage ~ % ./showcase --3d-timeline</span>
+              <span>rumpa@garage ~ % ./showcase --build-log-2026</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-display">
-              The 3D Timeline Chain
+              2026: Where I Started Building
             </h2>
             <p className="text-slate-300 text-sm sm:text-base mt-2 max-w-2xl font-light">
-              An interactive dual-track timeline spanning 2022 to 2026. <span className="text-amber-400 font-medium">Experimental Garage side projects</span> float above the central axis, while <span className="text-orange-400 font-medium">production company platforms</span> sit below.
+              My first year of building in public. Side projects sit above the axis while live client websites sit below.
             </p>
           </div>
 
@@ -141,7 +139,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                Company Work (Below)
+                Client Work (Below)
               </button>
             </div>
 
@@ -169,7 +167,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
         <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
           <span className="text-xs font-mono text-slate-500 flex items-center gap-1 mr-1">
             <Calendar className="w-3.5 h-3.5" />
-            CHRONO:
+            BUILD LOG:
           </span>
           {years.map((y) => (
             <button
@@ -196,16 +194,16 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
           ref={scrollContainerRef}
           className="relative overflow-x-auto py-8 no-scrollbar scroll-smooth perspective-container"
         >
-          <div className="min-w-[1100px] flex flex-col relative px-4">
+          <div className="min-w-[680px] md:min-w-0 flex flex-col relative px-4">
             
             {/* UPPER TRACK: Side Projects (Floating Above Axis) */}
             {(selectedTrack === 'all' || selectedTrack === 'side_project') && (
               <div className="mb-6">
                 <div className="flex items-center gap-2 mb-4 text-xs font-mono text-amber-400 tracking-wider">
                   <Cpu className="w-3.5 h-3.5" />
-                  <span>▲ UPPER AXIS: GARAGE LABS & EXPERIMENTAL SIDE PROJECTS</span>
+                  <span>▲ UPPER AXIS: SIDE PROJECTS</span>
                 </div>
-                <div className="grid grid-cols-5 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                   {upperProjects.map((project) => (
                     <div
                       key={project.id}
@@ -223,13 +221,13 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                       <div>
                         <div className="flex items-center justify-between gap-2 text-[10px] font-mono mb-2">
                           <span className="px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30 font-semibold">
-                            {project.status || 'AI LAB'}
+                            {project.status || 'IN PROGRESS'}
                           </span>
-                          <span className="text-slate-400">{project.completionYear}</span>
+                          <span className="text-slate-400 font-mono">{project.completionYear}</span>
                         </div>
 
                         <h4 className="text-base font-bold text-white tracking-tight font-display mb-1 line-clamp-1">
-                          {project.title.split('—')[0]}
+                          {project.title}
                         </h4>
                         <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-3 font-light">
                           {project.subtitle}
@@ -237,15 +235,15 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                       </div>
 
                       <div>
-                        {/* Metric Callout */}
-                        <div className="p-2 rounded-lg bg-black/50 border border-white/5 mb-3 flex items-center justify-between">
+                        {/* Metric / Status Callout */}
+                        <div className="p-2.5 rounded-lg bg-black/50 border border-white/5 mb-3 flex items-center justify-between">
                           <span className="text-[11px] text-slate-400 font-mono">Metric:</span>
-                          <span className="text-xs font-mono font-bold text-amber-400">{project.keyMetric.value}</span>
+                          <span className="text-xs font-mono font-bold text-amber-400">{project.keyMetric.label}</span>
                         </div>
 
                         {/* Tech tags */}
                         <div className="flex flex-wrap gap-1 mb-3">
-                          {project.techStack.slice(0, 3).map((tech) => (
+                          {project.techStack.map((tech) => (
                             <span
                               key={tech}
                               className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-slate-300 border border-white/10"
@@ -265,7 +263,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                       </div>
 
                       {/* Stem connector down to the axis */}
-                      <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-gradient-to-b from-amber-500/60 to-amber-400" />
+                      <div className="hidden md:block absolute -bottom-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-gradient-to-b from-amber-500/60 to-amber-400" />
                     </div>
                   ))}
                 </div>
@@ -276,28 +274,26 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
             <div className="relative py-6 my-2">
               <div className="h-1 w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.6)]" />
 
-              <div className="absolute inset-0 flex items-center justify-between px-6 pointer-events-none">
-                {['2022', '2023', '2024', '2025', '2026'].map((year) => (
-                  <div key={year} className="flex flex-col items-center">
-                    <div className="w-5 h-5 rounded-full bg-[#090A0F] border-2 border-amber-400 flex items-center justify-center shadow-[0_0_10px_rgba(245,158,11,0.8)]">
-                      <div className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-                    </div>
-                    <span className="text-[11px] font-mono font-bold text-amber-300 mt-2 bg-black/80 px-2 py-0.5 rounded border border-amber-500/30">
-                      {year}
-                    </span>
+              <div className="absolute inset-0 flex items-center justify-center px-6 pointer-events-none">
+                <div className="flex flex-col items-center">
+                  <div className="w-6 h-6 rounded-full bg-[#090A0F] border-2 border-amber-400 flex items-center justify-center shadow-[0_0_14px_rgba(245,158,11,0.9)]">
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping" />
                   </div>
-                ))}
+                  <span className="text-xs font-mono font-bold text-amber-300 mt-2 bg-black/90 px-3 py-0.5 rounded-full border border-amber-500/40 tracking-wider shadow-md">
+                    2026 // INAUGURAL BUILD YEAR
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* LOWER TRACK: Commercial Work (Sitting Below Axis) */}
+            {/* LOWER TRACK: Client Work (Sitting Below Axis) */}
             {(selectedTrack === 'all' || selectedTrack === 'commercial') && (
               <div className="mt-6">
                 <div className="flex items-center gap-2 mb-4 text-xs font-mono text-orange-400 tracking-wider">
                   <Globe className="w-3.5 h-3.5" />
-                  <span>▼ LOWER AXIS: COMMERCIAL PLATFORMS & CLIENT SYSTEMS</span>
+                  <span>▼ LOWER AXIS: CLIENT WORK</span>
                 </div>
-                <div className="grid grid-cols-5 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                   {lowerProjects.map((project) => (
                     <div
                       key={project.id}
@@ -312,18 +308,18 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                       onClick={() => onSelectProject(project)}
                     >
                       {/* Stem connector up to the axis */}
-                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-gradient-to-t from-orange-500/60 to-orange-400" />
+                      <div className="hidden md:block absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-gradient-to-t from-orange-500/60 to-orange-400" />
 
                       <div>
                         <div className="flex items-center justify-between gap-2 text-[10px] font-mono mb-2">
                           <span className="px-2 py-0.5 rounded bg-orange-950/80 text-orange-300 border border-orange-500/30 font-semibold">
-                            {project.status || 'PROD'}
+                            {project.status || 'LIVE'}
                           </span>
-                          <span className="text-slate-400">{project.client}</span>
+                          <span className="text-slate-400 font-mono">{project.completionYear}</span>
                         </div>
 
                         <h4 className="text-base font-bold text-white tracking-tight font-display mb-1 line-clamp-1">
-                          {project.title.split('—')[0]}
+                          {project.title}
                         </h4>
                         <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-3 font-light">
                           {project.subtitle}
@@ -331,13 +327,15 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                       </div>
 
                       <div>
-                        <div className="p-2 rounded-lg bg-black/50 border border-white/5 mb-3 flex items-center justify-between">
-                          <span className="text-[11px] text-slate-400 font-mono">Impact:</span>
-                          <span className="text-xs font-mono font-bold text-orange-400">{project.keyMetric.value}</span>
+                        {/* Metric / Status Callout */}
+                        <div className="p-2.5 rounded-lg bg-black/50 border border-white/5 mb-3 flex items-center justify-between">
+                          <span className="text-[11px] text-slate-400 font-mono">Metric:</span>
+                          <span className="text-xs font-mono font-bold text-orange-400">{project.keyMetric.label}</span>
                         </div>
 
+                        {/* Tech tags */}
                         <div className="flex flex-wrap gap-1 mb-3">
-                          {project.techStack.slice(0, 3).map((tech) => (
+                          {project.techStack.map((tech) => (
                             <span
                               key={tech}
                               className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-slate-300 border border-white/10"
@@ -347,11 +345,26 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                           ))}
                         </div>
 
-                        <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs font-mono text-orange-400">
-                          <span className="flex items-center gap-1 text-[11px]">
-                            Inspect System Specs
+                        {/* Action link */}
+                        <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs font-mono">
+                          <span className="flex items-center gap-1 text-[11px] text-orange-400">
+                            Inspect Architecture
                           </span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                sound.playClick(850);
+                              }}
+                              className="flex items-center gap-1 text-[11px] text-amber-300 hover:text-white px-2 py-0.5 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/30 transition-all"
+                            >
+                              <span>Visit Live</span>
+                              <ArrowUpRight className="w-3 h-3" />
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -367,7 +380,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 text-amber-400">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              10 TOTAL NODES MAPPED
+              4 CURATED NODES // 2 SIDE PROJECTS · 2 CLIENT SITES (2026)
             </span>
             <span className="text-slate-600">|</span>
             <span>DUAL-AXIS 3D PERSPECTIVE</span>

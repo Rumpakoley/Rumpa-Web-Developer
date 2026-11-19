@@ -22,7 +22,7 @@ export interface Project {
   accentColor: string;
   badge: string;
   type: string;
-  status?: 'SHIPPED' | 'LIVE' | 'AI LAB' | 'WIP' | 'PROD';
+  status?: 'SHIPPED' | 'LIVE' | 'AI LAB' | 'WIP' | 'PROD' | 'IN PROGRESS' | 'IN DESIGN';
   architecture?: {
     frontend: string;
     backend: string;

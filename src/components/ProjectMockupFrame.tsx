@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Project } from '../types';
-import { ShoppingBag, TrendingUp, Calendar, Check, ExternalLink, ArrowRight } from 'lucide-react';
+import { Swords, Network, Utensils, Palette, Calendar, Check, ArrowRight, ExternalLink } from 'lucide-react';
+import { sound } from '../utils/audio';
 
 interface ProjectMockupFrameProps {
   project: Project;
@@ -8,33 +9,39 @@ interface ProjectMockupFrameProps {
 }
 
 export const ProjectMockupFrame: React.FC<ProjectMockupFrameProps> = ({ project, onOpenDetails }) => {
-  // Lumina Atelier state
-  const [cartCount, setCartCount] = useState(2);
-  const [addedItem, setAddedItem] = useState(false);
+  // Pokémon Chronicles State
+  const [battleHp, setBattleHp] = useState(84);
+  const [battleLog, setBattleLog] = useState('Wild Encounter ready. Select an attack.');
 
-  // Pulse Metrics state
-  const [timeRange, setTimeRange] = useState<'7D' | '30D' | '90D'>('30D');
+  // AI Interior Design State
+  const [activeSchemaTab, setActiveSchemaTab] = useState<'DFD' | 'ER'>('DFD');
 
-  // Artisan Table state
-  const [activeMenuTab, setActiveMenuTab] = useState<'Starters' | 'Mains' | 'Wine'>('Mains');
-  const [tableBooked, setTableBooked] = useState(false);
+  // Pichhutaaney State
+  const [waitlistSent, setWaitlistSent] = useState(false);
+  const [activeDish, setActiveDish] = useState<'Ilish' | 'Khichuri' | 'Kosha'>('Ilish');
 
-  // Strata Advisory state
-  const [adSpend, setAdSpend] = useState(5000);
+  // The Morphiq State
+  const [selectedSeries, setSelectedSeries] = useState<'Lacuna' | 'Ink' | 'Watercolors'>('Lacuna');
+  const [inquirySent, setInquirySent] = useState(false);
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!addedItem) {
-      setCartCount(prev => prev + 1);
-      setAddedItem(true);
-      setTimeout(() => setAddedItem(false), 2000);
-    }
+  const handleAttack = (move: string, damage: number) => {
+    sound.playClick(900);
+    setBattleHp(prev => Math.max(0, prev - damage));
+    setBattleLog(`Used ${move}! Enemy took ${damage} damage.`);
   };
 
-  const handleBookTable = (e: React.MouseEvent) => {
+  const handleWaitlistSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setTableBooked(true);
-    setTimeout(() => setTableBooked(false), 3000);
+    sound.playClick(850);
+    setWaitlistSent(true);
+    setTimeout(() => setWaitlistSent(false), 3000);
+  };
+
+  const handleInquirySubmit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    sound.playClick(850);
+    setInquirySent(true);
+    setTimeout(() => setInquirySent(false), 3000);
   };
 
   return (
@@ -46,215 +53,252 @@ export const ProjectMockupFrame: React.FC<ProjectMockupFrameProps> = ({ project,
           <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
           <span className="ml-2 font-mono text-[11px] text-slate-400 truncate max-w-[180px] sm:max-w-xs">
-            {project.liveUrl?.replace('https://', '')}
+            {project.liveUrl?.replace('https://', '') || `${project.id}.local`}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-mono text-amber-400 flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            99 Score
+            {project.status || 'LOG 2026'}
           </span>
         </div>
       </div>
 
       {/* Interactive Mockup Body based on project category */}
       <div className="p-4 sm:p-5 min-h-[260px] flex flex-col justify-between select-none">
-        {project.id === 'lumina-atelier' && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-white/5 pb-2.5 text-xs">
-              <span className="font-semibold tracking-wider text-slate-200">LUMINA ATELIER</span>
-              <div className="flex items-center gap-3 text-slate-400">
-                <span>Collections</span>
-                <span>Journal</span>
-                <span className="text-white flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded">
-                  <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="font-mono text-xs">{cartCount}</span>
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 items-center">
-              <div className="bg-gradient-to-br from-stone-900 to-stone-800 p-3 rounded-lg border border-white/5 relative overflow-hidden">
-                <div className="text-[10px] text-amber-400 font-mono">AUTUMN / WINTER 25</div>
-                <div className="text-sm font-semibold text-white mt-1">Structured Wool Overcoat</div>
-                <div className="text-xs text-slate-400 font-mono mt-1">₹18,500 / $220</div>
-                <button
-                  onClick={handleAddToCart}
-                  className="mt-3 w-full py-1.5 px-2 text-[11px] font-bold text-black bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 rounded transition-colors flex items-center justify-center gap-1 shadow-sm"
-                >
-                  {addedItem ? (
-                    <>
-                      <Check className="w-3 h-3 stroke-[3]" />
-                      <span>Added to Bag</span>
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingBag className="w-3 h-3" />
-                      <span>Quick Add</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <div className="space-y-2 text-xs text-slate-400">
-                <div className="p-2.5 rounded bg-white/[0.02] border border-white/5">
-                  <div className="text-white font-medium">Headless Architecture</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">Next.js 15 & Stripe Checkout</div>
-                </div>
-                <div className="p-2.5 rounded bg-white/[0.02] border border-white/5">
-                  <div className="text-amber-400 font-medium">0.38s First Contentful Paint</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">+148% Mobile Conversion Rate</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {project.id === 'pulse-metrics' && (
+        
+        {/* Project 1: Pokémon Chronicles */}
+        {project.id === 'pokemon-chronicles' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-white/5 pb-2 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]" />
-                <span className="font-semibold text-white">Pulse Analytics</span>
+                <Swords className="w-4 h-4 text-amber-400" />
+                <span className="font-semibold text-white font-mono">UNITY TURN-BASED COMBAT LOOP</span>
               </div>
-              <div className="flex items-center gap-1 bg-white/5 p-0.5 rounded text-[11px]">
-                {(['7D', '30D', '90D'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setTimeRange(tab);
-                    }}
-                    className={`px-2 py-0.5 rounded font-mono ${
-                      timeRange === tab ? 'bg-amber-500 text-black font-bold' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
+              <span className="text-[11px] font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">
+                Unity 6 Engine
+              </span>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
-              <div className="p-2.5 bg-white/[0.02] border border-white/5 rounded-lg">
-                <div className="text-[10px] text-slate-400">Total ARR</div>
-                <div className="text-base font-bold text-white font-mono mt-0.5">
-                  {timeRange === '7D' ? '$84,200' : timeRange === '30D' ? '$118,500' : '$342,000'}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+              {/* Battle Stage */}
+              <div className="p-3 bg-black/60 border border-amber-500/30 rounded-lg space-y-2">
+                <div className="flex justify-between items-center text-xs font-mono">
+                  <span className="text-white font-bold">RIVAL ENCOUNTER</span>
+                  <span className="text-amber-400">{battleHp} / 100 HP</span>
                 </div>
-                <div className="text-[10px] text-emerald-400 mt-0.5 flex items-center gap-0.5">
-                  <TrendingUp className="w-2.5 h-2.5" /> +24.8%
-                </div>
-              </div>
-              <div className="p-2.5 bg-white/[0.02] border border-white/5 rounded-lg">
-                <div className="text-[10px] text-slate-400">Query Time</div>
-                <div className="text-base font-bold text-amber-400 font-mono mt-0.5">0.28s</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">50k+ rows</div>
-              </div>
-              <div className="p-2.5 bg-white/[0.02] border border-white/5 rounded-lg">
-                <div className="text-[10px] text-slate-400">Active Seats</div>
-                <div className="text-base font-bold text-white font-mono mt-0.5">1,480</div>
-                <div className="text-[10px] text-emerald-400 mt-0.5">99.98% up</div>
-              </div>
-            </div>
-
-            {/* Simulated interactive mini chart */}
-            <div className="h-14 flex items-end gap-1.5 pt-2 px-1 border-t border-white/5">
-              {[40, 65, 55, 80, 72, 95, 88, 100, 84, 92, 110, 125].map((val, idx) => (
-                <div key={idx} className="flex-1 flex flex-col items-center gap-1 group/bar">
+                <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
                   <div
-                    style={{ height: `${(val / 125) * 44}px` }}
-                    className="w-full bg-gradient-to-t from-amber-600/40 to-amber-500 rounded-t transition-all group-hover/bar:to-amber-400"
+                    className="h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-300"
+                    style={{ width: `${(battleHp / 100) * 100}%` }}
                   />
                 </div>
-              ))}
+                <div className="text-[11px] font-mono text-slate-400 italic pt-1 truncate">
+                  {battleLog}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => handleAttack('Thunderbolt', 32)}
+                  className="p-2 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/40 text-amber-300 font-mono text-xs font-semibold text-left transition-colors"
+                >
+                  ⚡ Thunderbolt
+                </button>
+                <button
+                  onClick={() => handleAttack('Iron Tail', 24)}
+                  className="p-2 rounded bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 font-mono text-xs font-semibold text-left transition-colors"
+                >
+                  ⚔ Iron Tail
+                </button>
+                <button
+                  onClick={() => handleAttack('Quick Attack', 16)}
+                  className="p-2 rounded bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 font-mono text-xs font-semibold text-left transition-colors"
+                >
+                  💨 Quick Attack
+                </button>
+                <button
+                  onClick={() => {
+                    sound.playClick(600);
+                    setBattleHp(100);
+                    setBattleLog('Full HP restored with Potion.');
+                  }}
+                  className="p-2 rounded bg-emerald-500/20 hover:bg-emerald-500/40 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-semibold text-left transition-colors"
+                >
+                  🧪 Potion (+HP)
+                </button>
+              </div>
             </div>
           </div>
         )}
 
-        {project.id === 'artisan-table' && (
+        {/* Project 2: AI Interior Design Platform */}
+        {project.id === 'ai-interior-design' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-white/5 pb-2 text-xs">
-              <span className="font-serif italic text-amber-400 text-sm">Artisan Table & Wine</span>
-              <div className="flex items-center gap-1">
-                {(['Starters', 'Mains', 'Wine'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveMenuTab(tab);
-                    }}
-                    className={`px-2 py-0.5 text-[11px] rounded ${
-                      activeMenuTab === tab ? 'bg-amber-950/60 text-amber-300 font-medium' : 'text-slate-400'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
+              <div className="flex items-center gap-2">
+                <Network className="w-4 h-4 text-amber-400" />
+                <span className="font-semibold text-white font-mono">SYSTEM DESIGN & DATA PIPELINE</span>
+              </div>
+              <div className="flex items-center gap-1 bg-white/5 p-0.5 rounded text-[11px]">
+                <button
+                  onClick={() => setActiveSchemaTab('DFD')}
+                  className={`px-2 py-0.5 rounded font-mono ${
+                    activeSchemaTab === 'DFD' ? 'bg-amber-500 text-black font-bold' : 'text-slate-400'
+                  }`}
+                >
+                  DFD Flow
+                </button>
+                <button
+                  onClick={() => setActiveSchemaTab('ER')}
+                  className={`px-2 py-0.5 rounded font-mono ${
+                    activeSchemaTab === 'ER' ? 'bg-amber-500 text-black font-bold' : 'text-slate-400'
+                  }`}
+                >
+                  ER Schema
+                </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 items-center">
-              <div className="p-3 bg-[#14151a] border border-amber-500/20 rounded-lg">
-                <div className="text-xs font-semibold text-white">
-                  {activeMenuTab === 'Mains'
-                    ? 'Truffle Porcini Risotto'
-                    : activeMenuTab === 'Starters'
-                    ? 'Burrata & Heirloom Fig'
-                    : 'Chianti Classico Riserva'}
+            {activeSchemaTab === 'DFD' ? (
+              <div className="p-3 bg-black/60 border border-amber-500/20 rounded-lg space-y-2 font-mono text-[11px]">
+                <div className="text-amber-400 font-semibold">// DATA FLOW DIAGRAM (LEVEL 0 - 2)</div>
+                <div className="flex items-center gap-2 text-slate-300 flex-wrap">
+                  <span className="px-2 py-1 bg-white/5 rounded border border-white/10">1. Room Scan Input</span>
+                  <span className="text-amber-400">➔</span>
+                  <span className="px-2 py-1 bg-white/5 rounded border border-white/10">2. Vector Ingestion</span>
+                  <span className="text-amber-400">➔</span>
+                  <span className="px-2 py-1 bg-amber-500/20 text-amber-300 rounded border border-amber-500/40">3. Spatial Furniture Matching</span>
+                  <span className="text-amber-400">➔</span>
+                  <span className="px-2 py-1 bg-white/5 rounded border border-white/10">4. Itemized Cart</span>
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1">Aged arborio, black winter truffle, parmigiano</div>
-                <div className="text-xs font-mono text-amber-400 mt-2 font-medium">₹1,250 / $16</div>
+                <div className="text-slate-400 text-[10px] pt-1">
+                  Normalized data flow ensuring spatial vectors map directly to live SKU inventories.
+                </div>
+              </div>
+            ) : (
+              <div className="p-3 bg-black/60 border border-amber-500/20 rounded-lg space-y-1.5 font-mono text-[11px]">
+                <div className="text-amber-400 font-semibold">// RELATIONAL ENTITY SCHEMA (3NF)</div>
+                <div className="grid grid-cols-2 gap-2 text-[10px]">
+                  <div className="p-2 bg-white/5 rounded border border-white/10">
+                    <div className="text-amber-300 font-bold">RoomLayout</div>
+                    <div className="text-slate-400">id, user_id, dimensions, style_vector</div>
+                  </div>
+                  <div className="p-2 bg-white/5 rounded border border-white/10">
+                    <div className="text-amber-300 font-bold">FurnitureSKU</div>
+                    <div className="text-slate-400">sku_id, name, length_cm, price, in_stock</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Project 3: Pichhutaaney */}
+        {project.id === 'pichhutaaney' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b border-white/5 pb-2 text-xs">
+              <div className="flex items-center gap-2">
+                <Utensils className="w-4 h-4 text-orange-400" />
+                <span className="font-serif italic text-amber-300 text-sm">Pichhutaaney // Supper Club</span>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">
+                Lighthouse: 96
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+              <div className="p-3 bg-[#14151a] border border-orange-500/30 rounded-lg space-y-1">
+                <div className="text-xs font-semibold text-white">
+                  {activeDish === 'Ilish' && 'Bhapa Ilish & Mustard Emulsion'}
+                  {activeDish === 'Khichuri' && 'Gobindobhog Bhog Khichuri & Ghee'}
+                  {activeDish === 'Kosha' && 'Slow-Braised Mangsho & Luchi'}
+                </div>
+                <div className="text-[11px] text-slate-400">
+                  Intuitive Indian dining table, travel recipes & kitchen memories.
+                </div>
+                <div className="flex gap-1 pt-2">
+                  {(['Ilish', 'Khichuri', 'Kosha'] as const).map(dish => (
+                    <button
+                      key={dish}
+                      onClick={() => setActiveDish(dish)}
+                      className={`text-[10px] px-2 py-0.5 rounded font-mono ${
+                        activeDish === dish ? 'bg-orange-500/30 text-orange-300 border border-orange-500/40' : 'text-slate-400'
+                      }`}
+                    >
+                      {dish}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-2">
                 <button
-                  onClick={handleBookTable}
-                  className="w-full py-2 px-3 text-xs font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                  onClick={handleWaitlistSubmit}
+                  className="w-full py-2 px-3 text-xs font-bold text-black bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                 >
                   <Calendar className="w-3.5 h-3.5" />
-                  <span>{tableBooked ? 'Reserved: Table for 2' : 'Reserve Tonight (8:00 PM)'}</span>
+                  <span>{waitlistSent ? 'Reservation Waitlist Requested ✓' : 'Join Supper Club Waitlist'}</span>
                 </button>
-                <div className="text-[11px] text-slate-400 text-center font-mono">
-                  Direct booking · 0% commission fees
+                <div className="text-[10px] text-slate-400 text-center font-mono">
+                  Direct booking · Live at pichhutaaney.com
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {project.id === 'strata-advisory' && (
+        {/* Project 4: The Morphiq */}
+        {project.id === 'the-morphiq' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-white/5 pb-2 text-xs">
-              <span className="font-bold text-white tracking-tight">STRATA PARTNERS</span>
-              <span className="text-[11px] text-amber-400 font-mono">Interactive Funnel Demo</span>
+              <div className="flex items-center gap-2">
+                <Palette className="w-4 h-4 text-orange-400" />
+                <span className="font-semibold text-white tracking-wider">THE MORPHIQ // FINE ART</span>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">
+                Lighthouse: 98
+              </span>
             </div>
 
-            <div className="bg-[#14151a] border border-amber-500/20 p-3.5 rounded-lg">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-300">Monthly Ad Traffic Spend:</span>
-                <span className="font-mono font-bold text-amber-400">${adSpend.toLocaleString()}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+              <div className="p-3 bg-[#14151a] border border-orange-500/30 rounded-lg space-y-1">
+                <div className="text-xs font-semibold text-white">
+                  {selectedSeries === 'Lacuna' && 'LACUNA (2026) — Ink & Acrylic'}
+                  {selectedSeries === 'Ink' && 'Ephemeral Form — Black India Ink'}
+                  {selectedSeries === 'Watercolors' && 'Coastal Solitude — Wet-on-Wet'}
+                </div>
+                <div className="text-[11px] text-slate-400">
+                  Handmade cotton paper · Dimensions: A4 (8.27 × 11.69 inches)
+                </div>
+                <div className="flex gap-1 pt-2">
+                  {(['Lacuna', 'Ink', 'Watercolors'] as const).map(series => (
+                    <button
+                      key={series}
+                      onClick={() => setSelectedSeries(series)}
+                      className={`text-[10px] px-2 py-0.5 rounded font-mono ${
+                        selectedSeries === series ? 'bg-orange-500/30 text-orange-300 border border-orange-500/40' : 'text-slate-400'
+                      }`}
+                    >
+                      {series}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <input
-                type="range"
-                min="1000"
-                max="25000"
-                step="1000"
-                value={adSpend}
-                onClick={(e) => e.stopPropagation()}
-                onChange={(e) => setAdSpend(Number(e.target.value))}
-                className="w-full mt-2 accent-amber-500 cursor-pointer"
-              />
-              <div className="mt-3 pt-2.5 border-t border-amber-500/20 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Recaptured Revenue at 4.8% Conv:</span>
-                <span className="font-mono font-bold text-amber-300 text-sm">
-                  +${Math.round(adSpend * 3.4).toLocaleString()}/mo
-                </span>
-              </div>
-            </div>
 
-            <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
-              <span>Conversion: 1.4% → 4.8%</span>
-              <span className="text-slate-300">Calendly Sync Built-in</span>
+              <div className="space-y-2">
+                <button
+                  onClick={handleInquirySubmit}
+                  className="w-full py-2 px-3 text-xs font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  <span>{inquirySent ? 'Acquisition Inquiry Logged ✓' : 'Inquire For Acquisition'}</span>
+                </button>
+                <div className="text-[10px] text-slate-400 text-center font-mono">
+                  Museum-grade gallery · Live at themorphiq.com
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -262,13 +306,30 @@ export const ProjectMockupFrame: React.FC<ProjectMockupFrameProps> = ({ project,
         {/* Bottom card footer */}
         <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
           <span className="text-slate-400 font-mono text-[11px]">{project.timeline} Build Timeline</span>
-          <button
-            onClick={() => onOpenDetails(project)}
-            className="text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1 transition-colors"
-          >
-            <span>Case Study Details</span>
-            <ArrowRight className="w-3 h-3" />
-          </button>
+          <div className="flex items-center gap-3">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  sound.playClick(850);
+                }}
+                className="text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1 transition-colors text-[11px] font-mono"
+              >
+                <span>Live Site</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+            <button
+              onClick={() => onOpenDetails(project)}
+              className="text-slate-300 hover:text-white font-medium flex items-center gap-1 transition-colors text-[11px] font-mono"
+            >
+              <span>Architecture Specs</span>
+              <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

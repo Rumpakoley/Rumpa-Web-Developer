@@ -53,7 +53,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       command: 'showcase --3d-timeline',
       output: (
         <p className="text-amber-300">
-          ✓ Dual-axis 3D timeline online (10 glass cards active). Explore side projects above and commercial works below.
+          ✓ Dual-axis 3D timeline online (4 cards active). Explore side projects above and client work below.
         </p>
       ),
       timestamp: '00:01:15',

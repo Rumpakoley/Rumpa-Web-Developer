@@ -166,7 +166,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                 3D TIMELINE CHAIN
               </span>
               <span className="text-slate-600">|</span>
-              <span>10 GLASS CARDS (2022 — 2026)</span>
+              <span>4 BUILDS (2026 LOG)</span>
             </div>
           </div>
         </div>
@@ -356,8 +356,8 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                   {/* Card Metrics & Specs */}
                   <div>
                     <div className="p-2.5 rounded-xl bg-black/50 border border-white/5 mb-3 flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-slate-400 uppercase">Impact Metric</span>
-                      <span className="text-xs font-mono font-bold text-amber-400">{project.keyMetric.value}</span>
+                      <span className="text-[10px] font-mono text-slate-400 uppercase">Metric</span>
+                      <span className="text-xs font-mono font-bold text-amber-400">{project.keyMetric.label}</span>
                     </div>
 
                     <div className="flex flex-wrap gap-1 mb-3">
@@ -394,7 +394,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
         {/* Left: Active Card Info */}
         <div className="flex items-center gap-3">
           <div className="text-xs font-mono text-slate-400">
-            <span className="text-amber-400 font-bold">[{activeCardIndex + 1} / 10]</span>{' '}
+            <span className="text-amber-400 font-bold">[{activeCardIndex + 1} / {timelineProjects.length}]</span>{' '}
             <span className="text-white font-semibold">{activeProject.title.split('—')[0]}</span>
             <span className="hidden md:inline text-slate-500"> · {activeProject.type}</span>
           </div>
