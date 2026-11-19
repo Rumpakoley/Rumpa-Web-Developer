@@ -12,7 +12,7 @@ export const INITIAL_PROFILE: DeveloperProfile = {
   github: "https://github.com/rumpakoley",
   linkedin: "https://www.linkedin.com/in/rumpa-koley-22820032b",
   yearsExperience: "2026",
-  projectsCompleted: "4+",
+  projectsCompleted: "3+",
   satisfactionRate: "100%",
   avgDeliveryWeeks: "1-2",
 };
@@ -21,47 +21,6 @@ export const PROJECTS: Project[] = [
   // ==========================================
   // UPPER AXIS: SIDE PROJECTS
   // ==========================================
-  {
-    id: "pokemon-chronicles",
-    title: "Pokémon Chronicles: The Anime Legacy",
-    subtitle: "A Pokémon-style RPG built in Unity with scenes, a turn-based battle system, and custom rendering.",
-    category: "experimental",
-    track: "side_project",
-    status: "IN PROGRESS",
-    badge: "IN PROGRESS",
-    client: "Independent Game Lab",
-    completionYear: "2026",
-    timeline: "In Progress",
-    type: "Unity RPG & Turn-Based Combat",
-    accentColor: "#F59E0B",
-    problem: "Turn-based combat engines require modular finite-state machines to decouple input queuing, attack animations, type calculations, and dynamic camera choreography.",
-    solution: "Built a modular turn-based battle state machine in Unity with C#, managing battle transitions, damage formulas, health UI rendering, and custom particle scenes.",
-    keyMetric: {
-      value: "Active",
-      label: "Battle system working",
-    },
-    techStack: ["Unity", "C#", "Game Design", "State Machine", "Custom Shaders"],
-    features: [
-      "Modular turn-based battle state machine managing move queues and turn order",
-      "Type-effectiveness matrix and formulaic attack/defense calculations",
-      "Dynamic camera cutscenes transitioning between exploration and encounter",
-      "Custom pixel rendering and reactive health bar animations",
-    ],
-    liveUrl: "https://github.com/rumpakoley",
-    githubUrl: "https://github.com/rumpakoley",
-    architecture: {
-      frontend: "Unity Engine 6 Canvas UI & Custom Shaders",
-      backend: "C# Modular Component Scripts & Battle State Machine",
-      databaseOrCache: "ScriptableObjects for Moves, Stats & Encounters",
-      deployment: "Unity WebGL / Desktop Target",
-    },
-    terminalLogs: [
-      "ENGINE: Unity C# BattleStateMachine initialized",
-      "SYSTEM: Calculating type-effectiveness and combat formulas",
-      "CAMERA: Dynamic battle perspective sequencing nominal",
-      "STATUS: Battle system operational & playable",
-    ],
-  },
   {
     id: "ai-interior-design",
     title: "AI Interior Design Platform",

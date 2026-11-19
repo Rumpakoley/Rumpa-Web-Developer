@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Project } from '../types';
-import { Swords, Network, Utensils, Palette, Calendar, Check, ArrowRight, ExternalLink } from 'lucide-react';
+import { Network, Utensils, Palette, Calendar, Check, ArrowRight, ExternalLink } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 interface ProjectMockupFrameProps {
@@ -9,10 +9,6 @@ interface ProjectMockupFrameProps {
 }
 
 export const ProjectMockupFrame: React.FC<ProjectMockupFrameProps> = ({ project, onOpenDetails }) => {
-  // Pokémon Chronicles State
-  const [battleHp, setBattleHp] = useState(84);
-  const [battleLog, setBattleLog] = useState('Wild Encounter ready. Select an attack.');
-
   // AI Interior Design State
   const [activeSchemaTab, setActiveSchemaTab] = useState<'DFD' | 'ER'>('DFD');
 
@@ -23,12 +19,6 @@ export const ProjectMockupFrame: React.FC<ProjectMockupFrameProps> = ({ project,
   // The Morphiq State
   const [selectedSeries, setSelectedSeries] = useState<'Lacuna' | 'Ink' | 'Watercolors'>('Lacuna');
   const [inquirySent, setInquirySent] = useState(false);
-
-  const handleAttack = (move: string, damage: number) => {
-    sound.playClick(900);
-    setBattleHp(prev => Math.max(0, prev - damage));
-    setBattleLog(`Used ${move}! Enemy took ${damage} damage.`);
-  };
 
   const handleWaitlistSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -67,73 +57,7 @@ export const ProjectMockupFrame: React.FC<ProjectMockupFrameProps> = ({ project,
       {/* Interactive Mockup Body based on project category */}
       <div className="p-4 sm:p-5 min-h-[260px] flex flex-col justify-between select-none">
         
-        {/* Project 1: Pokémon Chronicles */}
-        {project.id === 'pokemon-chronicles' && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-white/5 pb-2 text-xs">
-              <div className="flex items-center gap-2">
-                <Swords className="w-4 h-4 text-amber-400" />
-                <span className="font-semibold text-white font-mono">UNITY TURN-BASED COMBAT LOOP</span>
-              </div>
-              <span className="text-[11px] font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">
-                Unity 6 Engine
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
-              {/* Battle Stage */}
-              <div className="p-3 bg-black/60 border border-amber-500/30 rounded-lg space-y-2">
-                <div className="flex justify-between items-center text-xs font-mono">
-                  <span className="text-white font-bold">RIVAL ENCOUNTER</span>
-                  <span className="text-amber-400">{battleHp} / 100 HP</span>
-                </div>
-                <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-300"
-                    style={{ width: `${(battleHp / 100) * 100}%` }}
-                  />
-                </div>
-                <div className="text-[11px] font-mono text-slate-400 italic pt-1 truncate">
-                  {battleLog}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => handleAttack('Thunderbolt', 32)}
-                  className="p-2 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/40 text-amber-300 font-mono text-xs font-semibold text-left transition-colors"
-                >
-                  ⚡ Thunderbolt
-                </button>
-                <button
-                  onClick={() => handleAttack('Iron Tail', 24)}
-                  className="p-2 rounded bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 font-mono text-xs font-semibold text-left transition-colors"
-                >
-                  ⚔ Iron Tail
-                </button>
-                <button
-                  onClick={() => handleAttack('Quick Attack', 16)}
-                  className="p-2 rounded bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 font-mono text-xs font-semibold text-left transition-colors"
-                >
-                  💨 Quick Attack
-                </button>
-                <button
-                  onClick={() => {
-                    sound.playClick(600);
-                    setBattleHp(100);
-                    setBattleLog('Full HP restored with Potion.');
-                  }}
-                  className="p-2 rounded bg-emerald-500/20 hover:bg-emerald-500/40 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-semibold text-left transition-colors"
-                >
-                  🧪 Potion (+HP)
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Project 2: AI Interior Design Platform */}
+        {/* Project 1: AI Interior Design Platform */}
         {project.id === 'ai-interior-design' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-white/5 pb-2 text-xs">

@@ -166,7 +166,7 @@ export const BryanGarageShowcase: React.FC<BryanGarageShowcaseProps> = ({
                 3D TIMELINE CHAIN
               </span>
               <span className="text-slate-600">|</span>
-              <span>4 BUILDS (2026 LOG)</span>
+              <span>3 BUILDS (2026 LOG)</span>
             </div>
           </div>
         </div>

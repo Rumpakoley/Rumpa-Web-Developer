@@ -203,7 +203,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
                   <Cpu className="w-3.5 h-3.5" />
                   <span>▲ UPPER AXIS: SIDE PROJECTS</span>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div className={`grid grid-cols-1 ${upperProjects.length === 1 ? 'max-w-xl mx-auto' : 'md:grid-cols-2 gap-6 max-w-4xl mx-auto'}`}>
                   {upperProjects.map((project) => (
                     <div
                       key={project.id}
@@ -380,7 +380,7 @@ export const TimelineShowcase: React.FC<TimelineShowcaseProps> = ({
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 text-amber-400">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              4 CURATED NODES // 2 SIDE PROJECTS · 2 CLIENT SITES (2026)
+              3 CURATED NODES // 1 SIDE PROJECT · 2 CLIENT SITES (2026)
             </span>
             <span className="text-slate-600">|</span>
             <span>DUAL-AXIS 3D PERSPECTIVE</span>

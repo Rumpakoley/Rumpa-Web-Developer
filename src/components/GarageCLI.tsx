@@ -53,7 +53,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       command: 'showcase --3d-timeline',
       output: (
         <p className="text-amber-300">
-          ✓ Dual-axis 3D timeline online (4 cards active). Explore side projects above and client work below.
+          ✓ Dual-axis 3D timeline online (3 cards active). Explore side projects above and client work below.
         </p>
       ),
       timestamp: '00:01:15',
@@ -92,7 +92,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
           <div className="space-y-1.5 text-xs text-slate-300">
             <p className="text-amber-400 font-bold mb-1">AVAILABLE GARAGE ROUTINES:</p>
             <p><span className="text-amber-400 font-mono w-28 inline-block">showcase</span> Jump to 3D Timeline Chain</p>
-            <p><span className="text-amber-400 font-mono w-28 inline-block">projects</span> List all 10 projects and experiments</p>
+            <p><span className="text-amber-400 font-mono w-28 inline-block">projects</span> List all 3 projects and experiments</p>
             <p><span className="text-amber-400 font-mono w-28 inline-block">inspect &lt;id&gt;</span> Open architecture modal for a project</p>
             <p><span className="text-amber-400 font-mono w-28 inline-block">cat profile</span> Display developer credentials and bio</p>
             <p><span className="text-amber-400 font-mono w-28 inline-block">skills</span> Print engineering competency matrix</p>
@@ -118,7 +118,7 @@ export const GarageCLI: React.FC<GarageCLIProps> = ({
       case 'ls':
         outputNode = (
           <div className="space-y-1 text-xs">
-            <p className="text-slate-400 font-semibold mb-1">INDEX OF 10 PROJECTS & EXPERIMENTS:</p>
+            <p className="text-slate-400 font-semibold mb-1">INDEX OF 3 PROJECTS & EXPERIMENTS:</p>
             {PROJECTS.map((p) => (
               <div key={p.id} className="flex items-center gap-3">
                 <span className="text-slate-500 font-mono">{p.completionYear}</span>
